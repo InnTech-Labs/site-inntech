@@ -1,8 +1,24 @@
-# site-base — template dos sites
+# site-inntech — site institucional da InnTech Labs
 
-Ponto de partida de todo site novo sob gestão. Astro, CSS próprio com tokens, componentes reaproveitáveis, SEO, formulário com anti-spam, WhatsApp e LGPD já resolvidos.
+Site da InnTech Labs (inntechlabs.com.br), criado a partir do template `site-base`: Astro estático, CSS com os tokens da marca, componentes próprios, formulários na Netlify, WhatsApp e LGPD.
 
-> Este repositório **não tem identidade de marca**. Cores, fontes, logo e textos são neutros e devem ser trocados em cada site.
+Antes de mexer, leia o `SITE.md` (ficha do site: identidade, regras, decisões e pendências).
+
+## Onde mexer no dia a dia
+
+| O quê | Onde |
+|---|---|
+| Textos de cada página | `src/content/pt/*.json` (home, soluções, innloco, demonstração, sobre, demais páginas) |
+| Contatos, menu, redes, CNPJ, link da demo, GA4 | `src/content/site.json` |
+| Política de privacidade | `src/content/legal/politica-de-privacidade.md` |
+| Ligar/desligar uma solução (ex.: LMS, VR) | `"ativo"` em `src/content/pt/solucoes.json` |
+| Vídeo do InnLoco no hero | `hero.video` em `home.json` e `innloco.json` (arquivo em `public/midia/`) |
+| Cores, fontes, chanfros, molduras | `src/styles/tokens.css` |
+| Arquivos oficiais da marca | `public/marca/` (não redesenhar) |
+
+---
+
+*Instruções gerais do template:*
 
 ## Rodar no computador
 

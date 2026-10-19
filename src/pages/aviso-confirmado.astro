@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PaginaSimples from '../components/PaginaSimples.astro';
+import paginas from '../content/pt/paginas.json';
+const p = paginas.avisoConfirmado;
+---
+
+<Base titulo={p.seo.titulo} descricao={p.seo.descricao} semIndexar>
+  <div data-evento-pagina="aviso_innloco_campo">
+    <PaginaSimples titulo={p.titulo} texto={p.texto}>
+      <a class="botao botao--claro" href="/innloco">{p.acao}</a>
+    </PaginaSimples>
+  </div>
+</Base>

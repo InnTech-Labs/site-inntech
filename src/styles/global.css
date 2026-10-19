@@ -1,6 +1,7 @@
 /*
-  Estilos globais: reset leve, tipografia base, utilitários de layout e acessibilidade.
-  Não coloque cores ou fontes fixas aqui — use sempre os tokens de tokens.css.
+  Estilos globais da InnTech Labs: base escura, tipografia, layout e as peças da marca
+  (botão com relevo, chanfro, moldura, tag, numeração, formulários).
+  Cores e medidas vêm de tokens.css — não fixe valores de identidade aqui.
 */
 @import './tokens.css';
 
@@ -12,26 +13,39 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  color-scheme: dark;
+  background: var(--cor-fundo);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   margin: 0;
   font-family: var(--fonte-texto);
-  font-weight: var(--peso-texto);
   font-size: var(--texto-base);
   line-height: var(--altura-linha);
   color: var(--cor-texto);
   background: var(--cor-fundo);
+  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--vinho);
+  color: var(--branco-quente);
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--fonte-titulo);
-  font-weight: var(--peso-titulo);
+  font-family: var(--fonte-display);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
   line-height: var(--altura-linha-titulo);
   margin: 0 0 var(--esp-4);
   text-wrap: balance;
@@ -39,6 +53,7 @@ h4 {
 h1 { font-size: var(--titulo-1); }
 h2 { font-size: var(--titulo-2); }
 h3 { font-size: var(--titulo-3); }
+h4 { font-size: var(--titulo-4); letter-spacing: -0.015em; line-height: 1.2; }
 
 p {
   margin: 0 0 var(--esp-4);
@@ -46,11 +61,14 @@ p {
 }
 
 a {
-  color: var(--cor-primaria);
-  text-underline-offset: 0.2em;
+  color: var(--cor-texto);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--claro-rotulo);
+  transition: text-decoration-color var(--transicao);
 }
 a:hover {
-  color: var(--cor-primaria-escura);
+  text-decoration-color: var(--cor-acao);
 }
 
 img,
@@ -61,14 +79,19 @@ video {
   display: block;
 }
 
-/* Foco sempre visível para navegação por teclado */
-:focus-visible {
-  outline: 3px solid var(--cor-foco);
-  outline-offset: 2px;
-  border-radius: 2px;
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Layout */
+:focus-visible {
+  outline: 2px solid var(--cor-foco);
+  outline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
 .container {
   width: min(100% - 2 * var(--gutter), var(--largura-max));
   margin-inline: auto;
@@ -76,59 +99,347 @@ video {
 .secao {
   padding-block: var(--esp-secao);
 }
-.secao--suave {
-  background: var(--cor-fundo-suave);
+.secao--painel {
+  background: var(--cor-painel);
 }
-.texto-largo {
-  max-width: var(--largura-texto);
+.secao--vinho {
+  background: var(--vinho);
+  color: var(--branco-quente);
 }
-.grade {
-  display: grid;
-  gap: var(--esp-5);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+.secao__cabecalho {
+  max-width: 46rem;
+  margin-bottom: clamp(var(--esp-6), 2rem + 2vw, var(--esp-8));
 }
-.centro {
-  text-align: center;
-  margin-inline: auto;
+.secao__cabecalho h2 {
+  margin-bottom: var(--esp-3);
 }
-.subtitulo {
+.lead {
   font-size: var(--texto-lg);
   color: var(--cor-texto-suave);
+  max-width: var(--largura-texto);
 }
 
-/* Botões */
+/* Rótulo técnico (JetBrains Mono, caixa alta, tracking) — só para rótulos de verdade */
+.rotulo {
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-rotulo);
+  font-weight: 500;
+  letter-spacing: var(--tracking-rotulo);
+  text-transform: uppercase;
+  color: var(--cor-rotulo);
+  line-height: 1.4;
+}
+
+/* ---------- Chanfro: cantos opostos (alto-esquerdo e baixo-direito) ---------- */
+.chanfro {
+  --c: var(--chanfro-painel);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+.painel {
+  --c: var(--chanfro-painel);
+  background: var(--cor-painel);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+
+/* Moldura chanfrada com linha (border-image com os SVGs de tokens.css) */
+.moldura {
+  border-style: solid;
+  border-width: 21px;
+  border-image: var(--moldura-painel) 21 fill / 21px stretch;
+}
+.moldura--preta {
+  border-image-source: var(--moldura-preta);
+}
+.moldura--vazada {
+  border-image: var(--moldura-vazada) 21 / 21px stretch;
+}
+.moldura--clara {
+  border-width: 29px;
+  border-image: var(--moldura-clara) 29 fill / 29px stretch;
+}
+
+/* ---------- Botões: face chanfrada + relevo sólido a 45° ---------- */
 .botao {
+  --face: var(--cor-acao);
+  --face-hover: var(--cor-acao-hover);
+  --relevo-cor: var(--cor-acao-relevo);
+  --texto: var(--cor-sobre-acao);
+  --c: var(--chanfro-botao);
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--esp-2);
-  min-height: 2.75rem; /* área de toque ≥ 44 px */
-  padding: var(--esp-3) var(--esp-5);
-  border: 2px solid var(--cor-primaria);
-  border-radius: var(--raio);
-  background: var(--cor-primaria);
-  color: var(--cor-sobre-primaria);
-  font: inherit;
-  font-weight: 600;
+  min-height: 3rem;
+  padding: 0.8rem 1.5rem;
+  margin: 0 var(--relevo) var(--relevo) 0; /* espaço para o relevo não colar no vizinho */
+  border: 0;
+  background: none;
+  color: var(--texto);
+  font-family: var(--fonte-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background var(--transicao), border-color var(--transicao), color var(--transicao);
+  transition: transform var(--transicao);
+}
+.botao::before,
+.botao::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+.botao::before {
+  z-index: -1;
+  background: var(--face);
+  transition: background var(--transicao);
+}
+.botao::after {
+  z-index: -2;
+  background: var(--relevo-cor);
+  transform: translate(var(--relevo), var(--relevo));
+  transition: transform var(--transicao);
 }
 .botao:hover {
-  background: var(--cor-primaria-escura);
-  border-color: var(--cor-primaria-escura);
-  color: var(--cor-sobre-primaria);
+  color: var(--texto);
 }
-.botao--secundario {
-  background: transparent;
-  color: var(--cor-primaria);
+.botao:hover::before {
+  background: var(--face-hover);
 }
-.botao--secundario:hover {
-  background: var(--cor-primaria);
-  color: var(--cor-sobre-primaria);
+/* Ao clicar, a face afunda no relevo */
+.botao:active {
+  transform: translate(3px, 3px);
+}
+.botao:active::after {
+  transform: translate(1px, 1px);
+}
+.botao:focus-visible {
+  outline-offset: 5px;
+}
+.botao--claro {
+  --face: var(--claro);
+  --face-hover: var(--branco-quente);
+  --relevo-cor: var(--cinza);
+  --texto: var(--preto);
+}
+.botao--grafite {
+  --face: var(--grafite);
+  --face-hover: var(--cinza);
+  --relevo-cor: var(--preto);
+  --texto: var(--claro);
+}
+.secao--painel .botao--grafite {
+  --face: var(--preto);
+  --face-hover: var(--cinza);
+  --relevo-cor: var(--cinza);
+}
+.botao--bloco {
+  width: calc(100% - var(--relevo));
+}
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-3) var(--esp-4);
 }
 
-/* Acessibilidade */
+/* Link de texto com sublinhado da marca */
+.link {
+  font-weight: 500;
+  color: var(--claro);
+  text-decoration: underline;
+  text-decoration-color: var(--cor-acao);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+.link:hover {
+  text-decoration-color: var(--cor-acao-hover);
+}
+
+/* ---------- Tags de etapa e de status ---------- */
+.tag {
+  --c: var(--chanfro-tag);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4em 0.75em;
+  background: var(--claro);
+  color: var(--preto);
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-rotulo);
+  font-weight: 500;
+  letter-spacing: var(--tracking-rotulo);
+  text-transform: uppercase;
+  line-height: 1.2;
+  white-space: nowrap;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+.tag--vermelho {
+  background: var(--vermelho);
+  color: var(--branco-quente);
+}
+.tag--contorno {
+  clip-path: none;
+  background: none;
+  color: var(--claro);
+  padding: 0 0.2em;
+  border-style: solid;
+  border-width: 8px;
+  border-image: var(--moldura-tag) 8 / 8px stretch;
+}
+
+/* ---------- Numeração (bloco 001 do kit) ---------- */
+.numero {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 0.9rem 0 1.1rem;
+  background: var(--cor-painel);
+  border-left: 6px solid var(--cor-linha);
+  font-family: var(--fonte-mono);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--claro);
+}
+.secao--painel .numero {
+  background: var(--preto);
+}
+.numero--destaque {
+  border-left-color: var(--vermelho);
+}
+
+/* ---------- Formulários ---------- */
+.formulario {
+  display: grid;
+  gap: var(--esp-5);
+}
+.formulario__linha {
+  display: grid;
+  gap: var(--esp-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+.campo {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+.campo > label,
+.grupo > legend {
+  font-family: var(--fonte-mono);
+  font-size: var(--texto-rotulo);
+  font-weight: 500;
+  letter-spacing: var(--tracking-rotulo);
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+.opcional {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--cor-rotulo);
+}
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: 0;
+  background: var(--preto);
+  color: var(--claro);
+  font: inherit;
+  transition: border-color var(--transicao);
+}
+.campo select {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: var(--seta-select);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+.campo textarea {
+  resize: vertical;
+  min-height: 7.5rem;
+}
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover {
+  border-color: var(--claro-rotulo);
+}
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  border-color: var(--claro);
+  outline: 2px solid var(--claro);
+  outline-offset: 0;
+}
+.campo input:user-invalid,
+.campo select:user-invalid,
+.campo textarea:user-invalid {
+  border-color: var(--cor-erro);
+}
+.grupo {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--esp-3);
+}
+.grupo > legend {
+  padding: 0;
+  margin-bottom: var(--esp-3);
+}
+.opcoes {
+  display: grid;
+  gap: var(--esp-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+.opcao {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--cor-linha);
+  background: var(--preto);
+  cursor: pointer;
+  line-height: 1.4;
+  transition: border-color var(--transicao);
+}
+.opcao:hover {
+  border-color: var(--claro-rotulo);
+}
+.opcao:has(input:checked) {
+  border-color: var(--claro);
+}
+.opcao input,
+.consentimento input {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0.1rem 0 0;
+  accent-color: var(--vermelho);
+}
+.consentimento {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-3);
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-suave);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.formulario__nota {
+  font-size: var(--texto-sm);
+  color: var(--cor-rotulo);
+  margin: 0;
+}
+
+/* ---------- Acessibilidade ---------- */
 .visualmente-oculto {
   position: absolute !important;
   width: 1px;
@@ -146,15 +457,14 @@ video {
   top: -100px;
   z-index: 100;
   padding: var(--esp-2) var(--esp-4);
-  background: var(--cor-primaria);
-  color: var(--cor-sobre-primaria);
-  border-radius: var(--raio);
+  background: var(--claro);
+  color: var(--preto);
+  font-weight: 600;
 }
 .pular-conteudo:focus {
   top: var(--esp-4);
 }
 
-/* Respeita quem prefere menos movimento */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

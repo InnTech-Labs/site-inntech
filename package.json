@@ -1,9 +1,9 @@
 {
-  "name": "site-base",
+  "name": "site-inntech",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Template base dos sites sob gestão: Astro, CSS com tokens, componentes reaproveitáveis.",
+  "description": "Site institucional da InnTech Labs (Astro).",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
     "astro": "^7.4.0"
   },
   "devDependencies": {

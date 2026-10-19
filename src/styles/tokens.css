@@ -1,45 +1,60 @@
 /*
-  Tokens da identidade do site.
+  Tokens da identidade InnTech Labs — fonte: Manual da Marca v2 (out/2026) e kit v1.2.
   ÚNICO lugar onde cores, fontes e medidas são definidas.
-  Em cada site novo, substitua os valores abaixo pela identidade do briefing
-  e registre a escolha no SITE.md (seção "Identidade").
 
-  Os valores deste template são neutros de propósito: o template não tem marca.
-  Garanta contraste AA (4,5:1 para texto, 3:1 para texto grande e elementos de interface).
+  Regras da marca que estes tokens traduzem:
+  - A marca é escura: o preto é o chão, o grafite é onde as peças vivem, o claro quente é o texto.
+  - O vermelho aparece em um ponto por peça (selo, tag, botão). O vinho é a cor de área grande.
+  - Sem branco de fundo, sem degradê, sem sombra suave. Relevo é extrusão sólida a 45°.
+  - A forma é o chanfro a 45° em cantos opostos (alto-esquerdo e baixo-direito). Nunca os quatro.
+  - Três famílias: Space Grotesk (display), IBM Plex Sans (texto), JetBrains Mono (rótulos).
 */
 :root {
-  /* Cores de marca */
-  --cor-primaria: #1f4fd1;
-  --cor-primaria-escura: #173c9f;
-  --cor-sobre-primaria: #ffffff;
-  --cor-acento: #0e8a7a;
+  /* Cores do manual */
+  --preto: #0f0f10;          /* BG-000 — fundo principal */
+  --grafite: #1c1c1f;        /* BG-100 — painéis */
+  --cinza: #3c3c40;          /* LINE-STRONG — linhas, trilhos, extrusão das letras */
+  --vinho: #6e1220;          /* BRAND-DEEP — áreas grandes, extrusão do vermelho */
+  --vermelho: #c8243a;       /* BRAND — um ponto por peça */
+  --vermelho-aceso: #e0344a; /* BRAND-HOT — só hover e estado ativo */
+  --claro: #d9d7d3;          /* INK — texto principal */
+  --claro-suave: #b5b2ad;    /* INK-MUTED — texto secundário */
+  --claro-rotulo: #8f8c88;   /* INK-QUIET — rótulos e legendas, nunca corpo */
+  --branco-quente: #fff3f3;  /* texto sobre vermelho e vinho */
 
-  /* Superfícies e texto */
-  --cor-fundo: #ffffff;
-  --cor-fundo-suave: #f4f5f7;
-  --cor-superficie: #ffffff;
-  --cor-texto: #16181d;
-  --cor-texto-suave: #4a505c;
-  --cor-borda: #dcdfe5;
-  --cor-foco: #1f4fd1;
-  --cor-erro: #b42318;
-  --cor-sucesso: #12715b;
+  /* Papéis (use estes nos componentes) */
+  --cor-fundo: var(--preto);
+  --cor-painel: var(--grafite);
+  --cor-linha: var(--cinza);
+  --cor-texto: var(--claro);
+  --cor-texto-suave: var(--claro-suave);
+  --cor-rotulo: var(--claro-rotulo);
+  --cor-acao: var(--vermelho);
+  --cor-acao-hover: var(--vermelho-aceso);
+  --cor-acao-relevo: var(--vinho);
+  --cor-sobre-acao: var(--branco-quente);
+  --cor-foco: var(--claro);
+  --cor-erro: #ff8a8a; /* contraste AA sobre preto e grafite */
 
-  /* Tipografia — troque pelas fontes da identidade (ver README, "Fontes") */
-  --fonte-titulo: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --fonte-texto: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --peso-titulo: 700;
-  --peso-texto: 400;
+  /* Tipografia */
+  --fonte-display: 'Space Grotesk', 'Arial Narrow', system-ui, sans-serif;
+  --fonte-texto: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fonte-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --tracking-display: -0.03em;
+  --tracking-rotulo: 0.11em;
 
-  /* Escala de tamanhos (fluida entre 360 px e 1280 px) */
+  /* Escala fluida (360 px → 1280 px) */
+  --texto-rotulo: 0.75rem;
   --texto-sm: 0.875rem;
-  --texto-base: 1rem;
-  --texto-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
-  --titulo-3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-  --titulo-2: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
-  --titulo-1: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --texto-base: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  --texto-lg: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --titulo-4: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --titulo-3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --titulo-2: clamp(1.875rem, 1.45rem + 1.9vw, 3rem);
+  --titulo-1: clamp(2.125rem, 1.55rem + 2.6vw, 4rem);
+  --titulo-mega: clamp(2.5rem, 1.6rem + 4.2vw, 5.5rem);
   --altura-linha: 1.6;
-  --altura-linha-titulo: 1.15;
+  --altura-linha-titulo: 1.04;
 
   /* Espaçamentos */
   --esp-1: 0.25rem;
@@ -50,18 +65,36 @@
   --esp-6: 2rem;
   --esp-7: 3rem;
   --esp-8: 4.5rem;
-  --esp-secao: clamp(3rem, 2rem + 4vw, 6rem);
+  --esp-secao: clamp(3.5rem, 2.2rem + 5.5vw, 7.5rem);
 
   /* Layout */
-  --largura-max: 72rem;
-  --largura-texto: 42rem;
+  --largura-max: 75rem;
+  --largura-texto: 40rem;
   --gutter: 1rem;
 
-  /* Forma */
-  --raio: 0.5rem;
-  --raio-lg: 1rem;
-  --sombra: 0 1px 2px rgb(16 24 40 / 0.06), 0 4px 12px rgb(16 24 40 / 0.06);
+  /* Forma: chanfros (cantos opostos) e relevo */
+  --chanfro-tag: 6px;
+  --chanfro-botao: 10px;
+  --chanfro-painel: 18px;
+  --chanfro-moldura: 26px;
+  --relevo: 4px;           /* deslocamento da extrusão a 45° */
+  --raio-interface: 10px;  /* só painéis de interface, nunca blocos de marca */
 
   /* Movimento */
-  --transicao: 180ms ease;
+  --transicao: 160ms ease;
+
+  /* Molduras chanfradas (usadas com border-image; as cores ficam aqui, não nos componentes).
+     painel: grafite com linha cinza · vazada: só a linha · clara: linha clara (moldura do kit)
+     tag: contorno fino para tags */
+  --moldura-painel: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M1 19L19 1H59V41L41 59H1Z' fill='%231c1c1f' stroke='%233c3c40' stroke-width='2'/%3E%3C/svg%3E");
+  --moldura-preta: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M1 19L19 1H59V41L41 59H1Z' fill='%230f0f10' stroke='%233c3c40' stroke-width='2'/%3E%3C/svg%3E");
+  --moldura-vazada: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M1 19L19 1H59V41L41 59H1Z' fill='none' stroke='%233c3c40' stroke-width='2'/%3E%3C/svg%3E");
+  --moldura-clara: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M1 27L27 1H79V53L53 79H1Z' fill='%230f0f10' stroke='%23d9d7d3' stroke-width='2'/%3E%3C/svg%3E");
+  --moldura-tag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M.75 6.75L6.75.75H23.25V17.25L17.25 23.25H.75Z' fill='none' stroke='%23d9d7d3' stroke-width='1.5'/%3E%3C/svg%3E");
+  --seta-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23b5b2ad' stroke-width='1.6'/%3E%3C/svg%3E");
+
+  /* Elementos gráficos do kit (arquivos oficiais em /public/marca) */
+  --fundo-grade: url('/marca/grade.svg');
+  --fundo-padrao-nn: url('/marca/padrao-nn.svg');
+  --regua-chanfros: url('/marca/regua-chanfros.svg');
 }

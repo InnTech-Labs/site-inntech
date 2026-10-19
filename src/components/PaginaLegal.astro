@@ -1,0 +1,77 @@
+---
+/** Moldura de leitura para os textos legais (privacidade e cookies). */
+interface Props {
+  titulo: string;
+  atualizadoEm: string;
+}
+const { titulo, atualizadoEm } = Astro.props;
+---
+
+<article class="secao legal">
+  <div class="container legal__interno">
+    <h1>{titulo}</h1>
+    <p class="rotulo legal__data">Última atualização: {atualizadoEm}</p>
+    <div class="legal__texto">
+      <slot />
+    </div>
+  </div>
+</article>
+
+<style>
+  .legal__interno {
+    max-width: 46rem;
+  }
+  .legal__data {
+    margin-bottom: var(--esp-7);
+  }
+  .legal__texto :global(h2) {
+    font-size: var(--titulo-4);
+    margin: var(--esp-7) 0 var(--esp-3);
+  }
+  .legal__texto :global(p),
+  .legal__texto :global(li) {
+    color: var(--claro-suave);
+  }
+  .legal__texto :global(ul) {
+    padding-left: 1.25rem;
+    margin: 0 0 var(--esp-4);
+  }
+  .legal__texto :global(li) {
+    margin-bottom: var(--esp-2);
+  }
+  .legal__texto :global(li::marker) {
+    color: var(--vermelho);
+  }
+  .legal__texto :global(strong) {
+    color: var(--claro);
+    font-weight: 500;
+  }
+  .legal__texto :global(.tabela) {
+    overflow-x: auto;
+    margin: var(--esp-4) 0 var(--esp-5);
+  }
+  .legal__texto :global(table) {
+    min-width: 32rem;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--texto-sm);
+  }
+  .legal__texto :global(th),
+  .legal__texto :global(td) {
+    text-align: left;
+    padding: var(--esp-3);
+    border-bottom: 1px solid var(--cinza);
+    vertical-align: top;
+  }
+  .legal__texto :global(th) {
+    font-family: var(--fonte-mono);
+    font-size: var(--texto-rotulo);
+    font-weight: 500;
+    letter-spacing: var(--tracking-rotulo);
+    text-transform: uppercase;
+    color: var(--claro-rotulo);
+  }
+  .legal__texto :global(td) {
+    color: var(--claro-suave);
+  }
+</style>

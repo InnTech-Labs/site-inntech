@@ -5,6 +5,6 @@ import { site, ehPrevia } from '../lib/site';
 export const GET: APIRoute = () => {
   const conteudo = ehPrevia
     ? 'User-agent: *\nDisallow: /\n'
-    : `User-agent: *\nAllow: /\nDisallow: /obrigado\n\nSitemap: ${new URL('/sitemap-index.xml', site.url)}\n`;
+    : `User-agent: *\nAllow: /\nDisallow: /obrigado\nDisallow: /pedido-recebido\nDisallow: /aviso-confirmado\n\nSitemap: ${new URL('/sitemap-index.xml', site.url)}\n`;
   return new Response(conteudo, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

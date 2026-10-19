@@ -1,0 +1,168 @@
+---
+/**
+ * Ilustração do hero: o mapa de uma operação vista de cima, como um painel de comando.
+ * Áreas chanfradas, fluxos entre elas e um marcador vermelho ("você") percorrendo o caminho —
+ * a ideia de simular a operação e de a pessoa evoluir dentro dela.
+ *
+ * É ilustração, não captura do produto. Quando houver vídeo/render real do InnLoco,
+ * ele entra no lugar deste mapa (ver Hero e src/content/pt/home.json).
+ * Movimento: o mapa se desenha uma vez e o marcador anda em loop; com
+ * prefers-reduced-motion, tudo fica parado.
+ */
+interface Props {
+  class?: string;
+}
+const { class: classe } = Astro.props;
+
+const areas = [
+  { id: 'captacao', rotulo: 'Captação', x: 24, y: 36, w: 120, h: 72 },
+  { id: 'processo', rotulo: 'Processo', x: 192, y: 36, w: 144, h: 108 },
+  { id: 'tancagem', rotulo: 'Tancagem', x: 372, y: 36, w: 84, h: 96 },
+  { id: 'utilidades', rotulo: 'Utilidades', x: 24, y: 156, w: 120, h: 96 },
+  { id: 'controle', rotulo: 'Controle', x: 192, y: 192, w: 96, h: 72 },
+  { id: 'expedicao', rotulo: 'Expedição', x: 336, y: 180, w: 120, h: 108 },
+  { id: 'acesso', rotulo: 'Acesso', x: 24, y: 300, w: 96, h: 40 },
+];
+
+// Polígono chanfrado nos cantos alto-esquerdo e baixo-direito (a forma da marca).
+const chanfrado = (x: number, y: number, w: number, h: number, c = 10) =>
+  `M${x + c} ${y}H${x + w}V${y + h - c}L${x + w - c} ${y + h}H${x}V${y + c}Z`;
+
+// Fluxos (tubulações) entre áreas.
+const fluxos = [
+  'M144 72H192',
+  'M336 72H372',
+  'M414 132V180',
+  'M300 144V156L312 168',
+  'M144 204H156L168 192',
+  'M240 144V192',
+];
+
+// Caminho do marcador: anel de corredores em volta da sala de controle.
+const caminho = 'M168 264V180L180 168H300L312 180V264L300 276H180L168 264Z';
+---
+
+<figure class:list={['mapa', 'moldura--clara', 'moldura', classe]}>
+  <svg viewBox="0 0 480 360" role="img" aria-labelledby="mapa-titulo mapa-descricao">
+    <title id="mapa-titulo">Ilustração: mapa de uma operação</title>
+    <desc id="mapa-descricao">
+      Áreas de uma operação vistas de cima, ligadas por fluxos, com um marcador vermelho percorrendo o caminho entre elas.
+    </desc>
+
+    <defs>
+      <pattern id="mapa-grade" width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" class="mapa__grade" />
+      </pattern>
+    </defs>
+    <rect width="480" height="360" fill="url(#mapa-grade)" />
+
+    <g class="mapa__fluxos">
+      {fluxos.map((d) => <path d={d} class="mapa__tubo" />)}
+      {fluxos.map((d) => <path d={d} class="mapa__corrente" />)}
+    </g>
+
+    <path d={caminho} class="mapa__caminho" />
+
+    <g class="mapa__areas">
+      {areas.map((a, i) => (
+        <g class="mapa__area" style={`--i:${i}`}>
+          <path d={chanfrado(a.x, a.y, a.w, a.h)} />
+          <text x={a.x + 10} y={a.y + 20}>{a.rotulo.toUpperCase()}</text>
+        </g>
+      ))}
+    </g>
+
+    <g class="mapa__marcador">
+      <rect x="-6" y="-6" width="12" height="12" />
+    </g>
+
+    <g class="mapa__legenda" aria-hidden="true">
+      <rect x="352" y="318" width="8" height="8" class="mapa__legenda-voce" />
+      <text x="366" y="326">VOCÊ</text>
+      <path d="M412 322H428" class="mapa__caminho" />
+      <text x="434" y="326">ROTA</text>
+    </g>
+  </svg>
+</figure>
+
+<style>
+  .mapa {
+    margin: 0;
+    padding: 0;
+  }
+  .mapa svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .mapa__grade {
+    fill: none;
+    stroke: var(--grafite);
+    stroke-width: 1;
+  }
+  .mapa__tubo {
+    fill: none;
+    stroke: var(--cinza);
+    stroke-width: 4;
+  }
+  .mapa__corrente {
+    fill: none;
+    stroke: var(--claro-rotulo);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 8;
+    animation: corrente 1.6s linear infinite;
+  }
+  .mapa__caminho {
+    fill: none;
+    stroke: var(--claro);
+    stroke-width: 1.25;
+    stroke-dasharray: 2 5;
+    opacity: 0.55;
+  }
+  .mapa__area path {
+    fill: var(--grafite);
+    stroke: var(--cinza);
+    stroke-width: 1.5;
+  }
+  .mapa__area text,
+  .mapa__legenda text {
+    font-family: var(--fonte-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    fill: var(--claro-rotulo);
+  }
+  .mapa__area {
+    animation: surgir 600ms ease-out both;
+    animation-delay: calc(var(--i) * 70ms);
+  }
+  .mapa__marcador rect,
+  .mapa__legenda-voce {
+    fill: var(--vermelho);
+  }
+  .mapa__marcador {
+    /* percorre o anel de corredores; percentuais proporcionais à distância de cada trecho */
+    animation: percurso 14s linear infinite;
+    animation-delay: 700ms;
+    transform: translate(168px, 264px);
+  }
+
+  @keyframes corrente {
+    to { stroke-dashoffset: -12; }
+  }
+  @keyframes surgir {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes percurso {
+    0% { transform: translate(168px, 264px); }
+    17.65% { transform: translate(168px, 180px); }
+    21.22% { transform: translate(180px, 168px); }
+    46.43% { transform: translate(300px, 168px); }
+    50% { transform: translate(312px, 180px); }
+    67.65% { transform: translate(312px, 264px); }
+    71.22% { transform: translate(300px, 276px); }
+    96.43% { transform: translate(180px, 276px); }
+    100% { transform: translate(168px, 264px); }
+  }
+</style>

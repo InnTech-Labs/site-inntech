@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import MapaOperacao from '../components/MapaOperacao.astro';
+import Ficha from '../components/Ficha.astro';
+import FormularioAviso from '../components/FormularioAviso.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../lib/site';
+import innloco from '../content/pt/innloco.json';
+
+const temGaleria = Boolean(innloco.galeria.video.src) || innloco.galeria.imagens.length > 0;
+---
+
+<Base titulo="InnLoco Comando" tituloSeo={innloco.seo.titulo} descricao={innloco.seo.descricao}>
+  <Hero
+    tag={innloco.hero.status}
+    titulo={innloco.hero.titulo}
+    subtitulo={innloco.hero.subtitulo}
+    video={innloco.hero.video}
+    acoes={[
+      { rotulo: innloco.hero.acaoPrincipal, href: site.cta.href },
+      { rotulo: innloco.hero.acaoSecundaria, href: '#aplicacoes', estilo: 'grafite' },
+    ]}
+  >
+    <MapaOperacao slot="visual" />
+  </Hero>
+
+  <section class="secao secao--painel" id="o-que-e" aria-labelledby="oquee-titulo">
+    <div class="container oquee">
+      <div>
+        <h2 id="oquee-titulo">{innloco.oQueE.titulo}</h2>
+        <p class="lead">{innloco.oQueE.texto}</p>
+      </div>
+      <Ficha nome={innloco.ficha.nome} atributos={innloco.ficha.atributos} />
+    </div>
+  </section>
+
+  <section class="secao" id="aplicacoes" aria-labelledby="aplicacoes-titulo">
+    <div class="container">
+      <header class="secao__cabecalho">
+        <h2 id="aplicacoes-titulo">{innloco.aplicacoes.titulo}</h2>
+      </header>
+      <ul class="lista-blocos" role="list">
+        {innloco.aplicacoes.itens.map((item) => (
+          <li class="painel bloco">
+            <h3>{item.titulo}</h3>
+            <p>{item.texto}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="secao secao--painel" aria-labelledby="diferenciais-titulo">
+    <div class="container">
+      <header class="secao__cabecalho">
+        <h2 id="diferenciais-titulo">{innloco.diferenciais.titulo}</h2>
+      </header>
+      <ul class="lista-blocos" role="list">
+        {innloco.diferenciais.itens.map((item) => (
+          <li class="moldura moldura--vazada bloco bloco--moldura">
+            <h3>{item.titulo}</h3>
+            <p>{item.texto}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {temGaleria && (
+    <section class="secao" aria-labelledby="galeria-titulo">
+      <div class="container">
+        <header class="secao__cabecalho">
+          <h2 id="galeria-titulo">{innloco.galeria.titulo}</h2>
+        </header>
+        {innloco.galeria.video.src && (
+          <figure class="moldura moldura--clara galeria__video">
+            <video src={innloco.galeria.video.src} poster={innloco.galeria.video.poster} controls preload="none" aria-label={innloco.galeria.video.descricao}></video>
+          </figure>
+        )}
+      </div>
+    </section>
+  )}
+
+  <section class="secao campo" aria-labelledby="campo-titulo">
+    <div class="container campo__grade">
+      <div>
+        <span class="tag tag--contorno">{innloco.campo.status}</span>
+        <h2 id="campo-titulo" class="campo__titulo">{innloco.campo.titulo}</h2>
+        <p class="lead">{innloco.campo.texto}</p>
+      </div>
+      <div>
+        <p class="campo__convite">{innloco.campo.convite}</p>
+        <FormularioAviso produto="InnLoco Campo" />
+      </div>
+    </div>
+  </section>
+
+  <CTA titulo={innloco.cta.titulo} texto={innloco.cta.texto} />
+</Base>
+
+<style>
+  .oquee {
+    display: grid;
+    gap: var(--esp-7);
+    align-items: center;
+  }
+  .oquee :global(.ficha) {
+    border-image-source: var(--moldura-preta);
+  }
+  .lista-blocos {
+    display: grid;
+    gap: var(--esp-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .bloco {
+    padding: var(--esp-6) var(--esp-5);
+  }
+  .bloco--moldura {
+    padding: var(--esp-4) var(--esp-3);
+  }
+  .bloco h3 {
+    font-size: var(--titulo-4);
+    margin-bottom: var(--esp-2);
+  }
+  .bloco p {
+    margin: 0;
+    color: var(--claro-suave);
+  }
+  .galeria__video {
+    margin: 0;
+  }
+  .galeria__video video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .campo {
+    border-top: 1px solid var(--cinza);
+  }
+  .campo__grade {
+    display: grid;
+    gap: var(--esp-6);
+    align-items: end;
+  }
+  .campo__titulo {
+    margin: var(--esp-5) 0 var(--esp-3);
+  }
+  .campo__convite {
+    font-weight: 500;
+    color: var(--claro);
+  }
+  @media (min-width: 900px) {
+    .oquee,
+    .campo__grade {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--esp-8);
+    }
+  }
+</style>

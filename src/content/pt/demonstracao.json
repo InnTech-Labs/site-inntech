@@ -1,0 +1,38 @@
+{
+  "seo": {
+    "titulo": "Demonstração | InnTech Labs",
+    "descricao": "Peça acesso à área de demonstração da InnTech Labs e navegue pelo InnLoco Comando, conteúdos SCORM, gamificações e simulações de diálogo."
+  },
+  "hero": {
+    "titulo": "Veja funcionando antes de decidir.",
+    "subtitulo": "Peça acesso à área de demonstração e navegue pelo conteúdo real.",
+    "acaoPrincipal": "Solicitar acesso",
+    "jaTemAcesso": "Já tem acesso?"
+  },
+  "catalogo": {
+    "titulo": "O que tem na demonstração",
+    "itens": [
+      { "icone": "simulacao-3d", "titulo": "InnLoco Comando", "texto": "Jogável no navegador." },
+      { "icone": "conteudo-interativo", "titulo": "Conteúdo interativo", "texto": "Amostras de cursos em SCORM." },
+      { "icone": "gamificacao", "titulo": "Gamificação", "texto": "Mini games e desafios." },
+      { "icone": "dialogo", "titulo": "Simulações de diálogo", "texto": "Cenários de conversa e decisão." }
+    ]
+  },
+  "midia": {
+    "video": { "src": "", "poster": "", "descricao": "" },
+    "imagens": []
+  },
+  "acesso": {
+    "titulo": "Como funciona o acesso",
+    "passos": [
+      { "titulo": "Você pede", "texto": "Preencha o formulário com seus dados e o que quer ver." },
+      { "titulo": "A gente libera", "texto": "Analisamos o pedido e enviamos o acesso por e-mail." },
+      { "titulo": "Você navega", "texto": "O acesso vale por tempo limitado. A data de validade vai no e-mail." }
+    ]
+  },
+  "formulario": {
+    "titulo": "Solicitar acesso",
+    "texto": "Leva um minuto.",
+    "areas": ["SMS / Segurança do Trabalho", "RH / T&D", "Operação", "Inovação", "Compras / Suprimentos", "Outra"]
+  }
+}

@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PaginaSimples from '../components/PaginaSimples.astro';
+import { linkWhatsapp } from '../lib/site';
+import paginas from '../content/pt/paginas.json';
+const p = paginas.pedidoRecebido;
+const whatsapp = linkWhatsapp('Pedido de demonstração');
+---
+
+<Base titulo={p.seo.titulo} descricao={p.seo.descricao} semIndexar>
+  <div data-evento-pagina="pedido_demo">
+    <PaginaSimples titulo={p.titulo} texto={p.texto}>
+      <p>{p.adiantar}</p>
+      <div class="acoes">
+        {whatsapp && <a class="botao botao--claro" href={whatsapp} target="_blank" rel="noopener" data-evento="clique_whatsapp">{p.rotuloWhatsapp}</a>}
+        <a class="link" href="/">{p.voltar}</a>
+      </div>
+    </PaginaSimples>
+  </div>
+</Base>

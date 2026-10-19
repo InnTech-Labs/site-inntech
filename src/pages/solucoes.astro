@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Icone from '../components/Icone.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../lib/site';
+import solucoes from '../content/pt/solucoes.json';
+
+// Soluções com "ativo": false (aguardando confirmação) não aparecem no site.
+const itens = solucoes.itens.filter((item) => item.ativo);
+---
+
+<Base titulo="Soluções" tituloSeo={solucoes.seo.titulo} descricao={solucoes.seo.descricao}>
+  <Hero titulo={solucoes.hero.titulo} subtitulo={solucoes.hero.subtitulo} compacto>
+    <nav class="atalhos" aria-label="Soluções nesta página">
+      <ul role="list">
+        {itens.map((item) => <li><a href={`#${item.id}`}>{item.nomeCurto}</a></li>)}
+      </ul>
+    </nav>
+  </Hero>
+
+  {itens.map((item, i) => (
+    <section id={item.id} class:list={['secao', 'solucao', { 'secao--painel': i % 2 === 0 }]} aria-labelledby={`${item.id}-titulo`}>
+      <div class="container solucao__grade">
+        <div class="solucao__cabeca">
+          <Icone nome={item.icone as any} tamanho={56} class="solucao__icone" />
+          <h2 id={`${item.id}-titulo`}>{item.nome}</h2>
+          <p class="solucao__chamada">{item.chamada}</p>
+        </div>
+        <div class="solucao__corpo">
+          <dl class="solucao__dados">
+            <div>
+              <dt class="rotulo">{solucoes.rotulos.oQueE}</dt>
+              <dd>{item.oQueE}</dd>
+            </div>
+            <div>
+              <dt class="rotulo">{solucoes.rotulos.paraQueServe}</dt>
+              <dd>{item.paraQueServe}</dd>
+            </div>
+            <div>
+              <dt class="rotulo">{solucoes.rotulos.ondeSeAplica}</dt>
+              <dd>{item.ondeSeAplica}</dd>
+            </div>
+          </dl>
+          <div class="acoes">
+            <a class="botao" href={site.cta.href}>{solucoes.ctaItem}</a>
+            {item.linkExtra && <a class="link" href={item.linkExtra.href}>{item.linkExtra.rotulo}</a>}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CTA titulo={solucoes.cta.titulo} texto={solucoes.cta.texto} />
+</Base>
+
+<style>
+  .atalhos {
+    margin-top: var(--esp-6);
+  }
+  .atalhos ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-2);
+  }
+  .atalhos a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--cinza);
+    background: var(--preto);
+    color: var(--claro-suave);
+    font-family: var(--fonte-mono);
+    font-size: var(--texto-rotulo);
+    letter-spacing: var(--tracking-rotulo);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color var(--transicao), color var(--transicao);
+  }
+  .atalhos a:hover {
+    border-color: var(--claro);
+    color: var(--claro);
+  }
+
+  .solucao {
+    scroll-margin-top: 4.5rem;
+  }
+  .solucao__grade {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .solucao__cabeca :global(.solucao__icone) {
+    color: var(--claro);
+    margin-bottom: var(--esp-5);
+  }
+  .solucao__cabeca h2 {
+    max-width: 16ch;
+  }
+  .solucao__chamada {
+    font-family: var(--fonte-display);
+    font-size: var(--titulo-4);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--claro-suave);
+    max-width: 26ch;
+    margin: 0;
+  }
+  .solucao__dados {
+    margin: 0 0 var(--esp-6);
+    border-top: 1px solid var(--cinza);
+  }
+  .solucao__dados div {
+    display: grid;
+    gap: var(--esp-2);
+    padding: var(--esp-4) 0;
+    border-bottom: 1px solid var(--cinza);
+  }
+  .solucao__dados dd {
+    margin: 0;
+    font-size: var(--texto-lg);
+    color: var(--claro);
+  }
+  @media (min-width: 900px) {
+    .solucao__grade {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: var(--esp-8);
+      align-items: start;
+    }
+    .solucao__dados div {
+      grid-template-columns: 9.5rem 1fr;
+      gap: var(--esp-5);
+      align-items: baseline;
+    }
+  }
+</style>

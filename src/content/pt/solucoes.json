@@ -1,0 +1,97 @@
+{
+  "seo": {
+    "titulo": "Soluções: simulação 3D, SCORM e gamificação | InnTech Labs",
+    "descricao": "Simulação 3D para treinamento, conteúdo SCORM interativo, treinamento gamificado e simulação de procedimentos e de diálogo."
+  },
+  "hero": {
+    "titulo": "Cada operação pede um formato.",
+    "subtitulo": "A gente começa pelo problema e escolhe a ferramenta depois."
+  },
+  "rotulos": {
+    "oQueE": "O que é",
+    "paraQueServe": "Para que serve",
+    "ondeSeAplica": "Onde se aplica"
+  },
+  "itens": [
+    {
+      "id": "simulacoes-3d",
+      "ativo": true,
+      "icone": "simulacao-3d",
+      "nome": "Simulações 3D",
+      "nomeCurto": "Simulações 3D",
+      "linha": "Sua operação em 3D, para praticar antes do campo.",
+      "chamada": "A operação reproduzida em 3D, para explorar e praticar.",
+      "oQueE": "Ambientes 3D interativos que reproduzem a operação, como o InnLoco.",
+      "paraQueServe": "Entender o fluxo, praticar a sequência certa e decidir sem risco.",
+      "ondeSeAplica": "Treinamento offshore digital, plantas industriais, áreas de acesso restrito e integração de quem chega.",
+      "linkExtra": { "rotulo": "Conhecer o InnLoco", "href": "/innloco" }
+    },
+    {
+      "id": "conteudo-interativo",
+      "ativo": true,
+      "icone": "conteudo-interativo",
+      "nome": "Conteúdo interativo SCORM",
+      "nomeCurto": "Conteúdo interativo",
+      "linha": "Animação e interação em SCORM, prontas para o seu LMS.",
+      "chamada": "O curso deixa de ser leitura e vira participação.",
+      "oQueE": "Cursos com animação, interação e avaliação, empacotados em SCORM.",
+      "paraQueServe": "Tirar o conteúdo do PDF e do slide e fazer a pessoa agir na tela.",
+      "ondeSeAplica": "Treinamentos normativos, procedimentos operacionais, integração e reciclagens."
+    },
+    {
+      "id": "gamificacao",
+      "ativo": true,
+      "icone": "gamificacao",
+      "nome": "Gamificação e mini games",
+      "nomeCurto": "Gamificação",
+      "linha": "Mini games e desafios que transformam regra em jogo.",
+      "chamada": "A regra vira jogo. E jogo pede revanche.",
+      "oQueE": "Mini games, desafios e mecânicas de jogo aplicados ao conteúdo.",
+      "paraQueServe": "Fixar o que importa com repetição que não cansa.",
+      "ondeSeAplica": "Regras de segurança, campanhas internas, fixação depois do treinamento e eventos."
+    },
+    {
+      "id": "simulacoes-de-dialogo",
+      "ativo": true,
+      "icone": "dialogo",
+      "nome": "Simulações de diálogo e de procedimento",
+      "nomeCurto": "Diálogo e procedimento",
+      "linha": "Decisões, conversas e passo a passo, treinados antes da situação real.",
+      "chamada": "Decidir na tela antes de decidir no campo.",
+      "oQueE": "Cenários em que a pessoa conversa, escolhe e executa o passo a passo.",
+      "paraQueServe": "Treinar decisão e sequência antes da situação real.",
+      "ondeSeAplica": "Abordagens de segurança, liderança, atendimento e procedimentos críticos."
+    },
+    {
+      "id": "plataformas",
+      "ativo": false,
+      "pendente": "Confirmar com o Leo se entra no site.",
+      "icone": "plataforma",
+      "nome": "Plataformas de cursos (LMS)",
+      "nomeCurto": "Plataformas",
+      "linha": "O ambiente onde os treinamentos ficam, com acompanhamento e certificado.",
+      "chamada": "Conteúdo, turmas e certificados num lugar só.",
+      "oQueE": "Plataforma de cursos configurada para a sua empresa.",
+      "paraQueServe": "Publicar treinamentos, acompanhar quem concluiu e emitir certificados.",
+      "ondeSeAplica": "Programas de treinamento, trilhas de integração e universidades corporativas."
+    },
+    {
+      "id": "realidade-virtual",
+      "ativo": false,
+      "pendente": "Confirmar com o Leo se entra no site.",
+      "icone": "realidade-virtual",
+      "nome": "Realidade Virtual",
+      "nomeCurto": "Realidade Virtual",
+      "linha": "Imersão para treinar o que é difícil de reproduzir.",
+      "chamada": "Estar na situação sem correr o risco dela.",
+      "oQueE": "Experiências imersivas em óculos de realidade virtual.",
+      "paraQueServe": "Viver a situação com presença e escala reais, sem exposição ao risco.",
+      "ondeSeAplica": "Trabalho em altura, espaços confinados, emergências e operações de alto risco."
+    }
+  ],
+  "ctaItem": "Ver na demonstração",
+  "cta": {
+    "titulo": "Veja os formatos funcionando.",
+    "texto": "Peça seu acesso à demonstração."
+  }
+}

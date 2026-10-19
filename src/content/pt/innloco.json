@@ -1,0 +1,61 @@
+{
+  "seo": {
+    "titulo": "InnLoco Comando: simulação 3D operacional | InnTech Labs",
+    "descricao": "Simulação 3D operacional que roda no navegador, com a visão do todo da operação. Conheça o InnLoco Comando e peça sua demonstração."
+  },
+  "hero": {
+    "status": "Lançamento",
+    "titulo": "InnLoco Comando",
+    "subtitulo": "A operação inteira em 3D, com a visão do todo.",
+    "acaoPrincipal": "Solicitar demonstração",
+    "acaoSecundaria": "Ver aplicações",
+    "video": { "src": "", "poster": "", "descricao": "Vídeo do InnLoco Comando em funcionamento" }
+  },
+  "ficha": {
+    "nome": "InnLoco Comando",
+    "status": "Lançamento",
+    "atributos": [
+      { "rotulo": "Tipo", "valor": "Simulação 3D operacional" },
+      { "rotulo": "Visão", "valor": "O todo da operação" },
+      { "rotulo": "Onde roda", "valor": "No navegador, sem instalação" },
+      { "rotulo": "Como ver", "valor": "Na área de demonstração" }
+    ]
+  },
+  "oQueE": {
+    "titulo": "Uma simulação para entender a operação de ponta a ponta.",
+    "texto": "O InnLoco Comando reproduz a operação em 3D e mostra como cada parte se conecta. Roda no navegador e foi feito para quem precisa entender o fluxo antes de entrar nele."
+  },
+  "aplicacoes": {
+    "titulo": "Onde ele entra",
+    "itens": [
+      { "titulo": "Integração", "texto": "Quem chega conhece a operação antes do primeiro dia no campo." },
+      { "titulo": "Visão do todo", "texto": "Cada equipe vê onde o seu trabalho entra no fluxo." },
+      { "titulo": "Rotina", "texto": "Praticar a sequência certa quantas vezes precisar." },
+      { "titulo": "Apresentação", "texto": "Mostrar a operação para quem não pode ir até ela." }
+    ]
+  },
+  "diferenciais": {
+    "titulo": "Diferenciais",
+    "itens": [
+      { "titulo": "Roda no navegador", "texto": "Abre direto no navegador, sem instalar nada." },
+      { "titulo": "A operação inteira", "texto": "Nada de peça solta: o todo aparece numa tela só." },
+      { "titulo": "Em 3D", "texto": "Explorar o ambiente é mais claro do que ler sobre ele." },
+      { "titulo": "Teste antes", "texto": "Você navega pelo InnLoco na área de demonstração antes de decidir." }
+    ]
+  },
+  "galeria": {
+    "titulo": "Veja o InnLoco Comando",
+    "video": { "src": "", "poster": "", "descricao": "" },
+    "imagens": []
+  },
+  "campo": {
+    "status": "Em breve",
+    "titulo": "InnLoco Campo",
+    "texto": "Simulação 3D realista que reproduz locais reais.",
+    "convite": "Quer saber quando chegar? Deixe seu e-mail."
+  },
+  "cta": {
+    "titulo": "Veja o InnLoco funcionando.",
+    "texto": "Peça seu acesso à demonstração."
+  }
+}

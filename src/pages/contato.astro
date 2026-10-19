@@ -1,43 +1,108 @@
 ---
 import Base from '../layouts/Base.astro';
 import Formulario from '../components/Formulario.astro';
-import { site, digitos, linkWhatsapp } from '../lib/site';
+import { site, linkWhatsapp, usuarioInstagram } from '../lib/site';
+import paginas from '../content/pt/paginas.json';
 
-const { contato } = site;
+const p = paginas.contato;
 const whatsapp = linkWhatsapp('Contato');
+const instagram = usuarioInstagram();
 ---
 
-<Base titulo="Contato" descricao={`Fale com ${site.nome} pelo formulário, WhatsApp ou e-mail.`}>
-  <section class="secao">
-    <div class="container contato">
-      <div>
-        <h1>Contato</h1>
-        <p class="subtitulo">Envie sua mensagem e retornaremos o mais breve possível.</p>
-        <ul class="canais">
-          {whatsapp && <li><a href={whatsapp} target="_blank" rel="noopener">Conversar pelo WhatsApp</a></li>}
-          {contato.telefone && <li><a href={`tel:+${digitos(contato.telefone)}`}>{contato.telefone}</a></li>}
-          {contato.email && <li><a href={`mailto:${contato.email}`}>{contato.email}</a></li>}
-        </ul>
+<Base titulo="Contato" tituloSeo={p.seo.titulo} descricao={p.seo.descricao}>
+  <section class="secao contato">
+    <div class="container contato__grade">
+      <div class="contato__canais">
+        <h1>{p.titulo}</h1>
+        <p class="lead">{p.subtitulo}</p>
+
+        {whatsapp && (
+          <a class="botao" href={whatsapp} target="_blank" rel="noopener" data-evento="clique_whatsapp">{p.rotuloWhatsapp}</a>
+        )}
+
+        <dl class="canais">
+          <div>
+            <dt class="rotulo">{p.rotulos.whatsapp}</dt>
+            <dd>{site.contato.telefone}</dd>
+          </div>
+          <div>
+            <dt class="rotulo">{p.rotulos.email}</dt>
+            <dd><a href={`mailto:${site.contato.email}`} data-evento="clique_email">{site.contato.email}</a></dd>
+          </div>
+          {instagram && (
+            <div>
+              <dt class="rotulo">{p.rotulos.instagram}</dt>
+              <dd><a href={site.redes.instagram} target="_blank" rel="noopener">{instagram}</a></dd>
+            </div>
+          )}
+        </dl>
+
+        <p class="contato__demo">
+          {p.demo} <a class="link" href={site.cta.href}>{p.demoLink}</a>
+        </p>
       </div>
-      <Formulario />
+
+      <div class="contato__form painel">
+        <h2 class="contato__form-titulo">{p.formularioTitulo}</h2>
+        <Formulario />
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
   .contato {
+    position: relative;
+    isolation: isolate;
+  }
+  .contato::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--fundo-grade);
+    background-size: 560px 560px;
+    opacity: 0.5;
+  }
+  .contato__grade {
     display: grid;
     gap: var(--esp-7);
   }
-  .canais {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: var(--esp-2);
+  .contato__canais .lead {
+    margin-bottom: var(--esp-6);
   }
-  @media (min-width: 900px) {
-    .contato {
-      grid-template-columns: 1fr 1.3fr;
+  .canais {
+    margin: var(--esp-7) 0 var(--esp-6);
+    border-top: 1px solid var(--cinza);
+  }
+  .canais div {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--esp-3);
+    padding: var(--esp-4) 0;
+    border-bottom: 1px solid var(--cinza);
+    align-items: baseline;
+  }
+  .canais dd {
+    margin: 0;
+    font-size: var(--texto-lg);
+    overflow-wrap: anywhere;
+  }
+  .contato__demo {
+    color: var(--claro-suave);
+  }
+  .contato__form {
+    padding: clamp(var(--esp-5), 1rem + 2vw, var(--esp-7));
+  }
+  .contato__form-titulo {
+    font-size: var(--titulo-3);
+    margin-bottom: var(--esp-5);
+  }
+  @media (min-width: 980px) {
+    .contato__grade {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: var(--esp-8);
+      align-items: start;
     }
   }
 </style>
