@@ -49,7 +49,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
   - `aviso-lancamento` → notificar comercial@.
 
 ## Integrações
-- Netlify Forms (ativar Form detection e configurar as notificações por e-mail).
+- Netlify Forms: Form detection ativo; notificações em Forms → Submission notifications (ver "Formulários" acima).
 - Google Analytics 4: código pronto; só carrega após aceite no aviso de cookies. Falta o ID (`site.json → analytics.ga4`).
 - Google Search Console: a configurar no lançamento.
 - Área de demonstração: aplicação separada (repositório privado `demo-inntech`), em demo.inntechlabs.com.br. O pedido de acesso nasce no site (Netlify Forms) e segue para a demo por webhook.
