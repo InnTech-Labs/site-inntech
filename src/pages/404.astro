@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+---
+
+<Base titulo="Página não encontrada" descricao="A página procurada não existe ou mudou de endereço." semIndexar>
+  <section class="secao">
+    <div class="container texto-largo">
+      <p class="subtitulo">Erro 404</p>
+      <h1>Página não encontrada</h1>
+      <p>O endereço pode ter mudado ou a página não existe mais.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--esp-3)">
+        <a class="botao" href="/">Ir para o início</a>
+        <a class="botao botao--secundario" href={site.cta.href}>{site.cta.rotulo}</a>
+      </div>
+    </div>
+  </section>
+</Base>

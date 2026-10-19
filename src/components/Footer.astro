@@ -1,0 +1,101 @@
+---
+/** Rodapé com contatos, redes e links legais. Tudo vem de site.json. */
+import { site, redesAtivas, digitos, linkWhatsapp } from '../lib/site';
+
+const { contato } = site;
+const whatsapp = linkWhatsapp('Rodapé');
+const ano = new Date().getFullYear();
+const nomesRedes: Record<string, string> = {
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  youtube: 'YouTube',
+  facebook: 'Facebook',
+};
+---
+
+<footer class="rodape">
+  <div class="container rodape__grade">
+    <div>
+      <img src={site.logo} alt={site.nome} width="160" height="40" class="rodape__logo" />
+      <p class="rodape__descricao">{site.descricao}</p>
+    </div>
+
+    {(contato.telefone || contato.email || whatsapp || contato.endereco) && (
+      <div>
+        <h2 class="rodape__titulo">Contato</h2>
+        <ul>
+          {contato.telefone && <li><a href={`tel:+${digitos(contato.telefone)}`}>{contato.telefone}</a></li>}
+          {whatsapp && <li><a href={whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>}
+          {contato.email && <li><a href={`mailto:${contato.email}`}>{contato.email}</a></li>}
+          {contato.endereco && <li>{contato.endereco}{contato.cidade && ` — ${contato.cidade}/${contato.estado}`}</li>}
+        </ul>
+      </div>
+    )}
+
+    {redesAtivas().length > 0 && (
+      <div>
+        <h2 class="rodape__titulo">Redes</h2>
+        <ul>
+          {redesAtivas().map((rede) => (
+            <li><a href={rede.url} target="_blank" rel="noopener">{nomesRedes[rede.nome] ?? rede.nome}</a></li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+
+  <div class="container rodape__base">
+    <p>© {ano} {site.nome}. Todos os direitos reservados.</p>
+    <a href="/politica-de-privacidade">Política de privacidade</a>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    background: var(--cor-fundo-suave);
+    border-top: 1px solid var(--cor-borda);
+    padding-top: var(--esp-7);
+    font-size: var(--texto-sm);
+  }
+  .rodape__grade {
+    display: grid;
+    gap: var(--esp-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+  .rodape__logo {
+    height: 2.25rem;
+    width: auto;
+    margin-bottom: var(--esp-3);
+  }
+  .rodape__descricao {
+    color: var(--cor-texto-suave);
+    max-width: 22rem;
+  }
+  .rodape__titulo {
+    font-size: var(--texto-base);
+    margin-bottom: var(--esp-3);
+  }
+  .rodape ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--esp-2);
+  }
+  .rodape a {
+    color: var(--cor-texto);
+  }
+  .rodape__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    margin-top: var(--esp-6);
+    padding-block: var(--esp-5);
+    border-top: 1px solid var(--cor-borda);
+    color: var(--cor-texto-suave);
+  }
+  .rodape__base p {
+    margin: 0;
+  }
+</style>

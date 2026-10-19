@@ -1,0 +1,68 @@
+---
+/**
+ * Cartão para serviços, cursos, produtos ou diferenciais.
+ * Se receber href, o cartão inteiro vira clicável (link no título).
+ */
+interface Props {
+  titulo: string;
+  texto?: string;
+  href?: string;
+  rotuloLink?: string;
+  nivelTitulo?: 'h2' | 'h3';
+}
+const { titulo, texto, href, rotuloLink = 'Saiba mais', nivelTitulo = 'h3' } = Astro.props;
+const Titulo = nivelTitulo;
+---
+
+<article class="card" data-clicavel={href ? '' : undefined}>
+  <slot name="icone" />
+  <Titulo class="card__titulo">
+    {href ? <a href={href}>{titulo}</a> : titulo}
+  </Titulo>
+  {texto && <p>{texto}</p>}
+  <slot />
+  {href && <span class="card__link" aria-hidden="true">{rotuloLink} →</span>}
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--esp-2);
+    padding: var(--esp-5);
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-lg);
+    transition: box-shadow var(--transicao), border-color var(--transicao);
+  }
+  .card p {
+    color: var(--cor-texto-suave);
+    margin: 0;
+  }
+  .card__titulo {
+    font-size: var(--titulo-3);
+    margin: 0;
+  }
+  .card__titulo a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Área clicável cobre o cartão inteiro */
+  .card__titulo a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .card[data-clicavel]:hover {
+    border-color: var(--cor-primaria);
+    box-shadow: var(--sombra);
+  }
+  .card__link {
+    margin-top: auto;
+    padding-top: var(--esp-3);
+    color: var(--cor-primaria);
+    font-weight: 600;
+  }
+</style>

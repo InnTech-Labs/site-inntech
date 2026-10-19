@@ -1,0 +1,108 @@
+---
+/**
+ * Política de privacidade — modelo base, alinhado à LGPD (Lei nº 13.709/2018).
+ * Em cada site: revisar com o dono (dados coletados, finalidades, ferramentas
+ * de terceiros e contato do encarregado), ajustar este texto e atualizar a data.
+ * Se o site tiver área de login, pagamento ou outras coletas, este texto precisa crescer.
+ */
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+
+const atualizadoEm = '18 de outubro de 2026'; // atualize a cada revisão do texto
+const temAnalytics = Boolean(site.analytics.ga4);
+const contatoPrivacidade = site.contato.email;
+---
+
+<Base titulo="Política de privacidade" descricao={`Como ${site.nome} trata os dados pessoais de quem visita o site.`}>
+  <section class="secao">
+    <article class="container texto-largo politica">
+      <h1>Política de privacidade</h1>
+      <p class="subtitulo">Última atualização: {atualizadoEm}</p>
+
+      <p>
+        Esta política explica como {site.nome} trata os dados pessoais de quem visita este site,
+        conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).
+      </p>
+
+      <h2>Quais dados coletamos</h2>
+      <ul>
+        <li><strong>Formulário de contato:</strong> nome, e-mail, telefone (opcional) e a mensagem que você escrever.</li>
+        <li><strong>WhatsApp e e-mail:</strong> os dados que você mesmo nos enviar por esses canais.</li>
+        {temAnalytics && (
+          <li>
+            <strong>Navegação:</strong> se você aceitar os cookies de análise, coletamos dados de uso de forma
+            agregada (páginas visitadas, tempo no site, tipo de dispositivo) por meio do Google Analytics.
+          </li>
+        )}
+      </ul>
+
+      <h2>Para que usamos</h2>
+      <p>
+        Usamos os dados apenas para responder ao seu contato
+        {temAnalytics && ' e para entender, de forma agregada, como o site é usado e melhorá-lo'}.
+        Não vendemos nem compartilhamos seus dados para fins de marketing de terceiros.
+      </p>
+
+      <h2>Base legal</h2>
+      <p>
+        O tratamento dos dados de contato se baseia no atendimento à sua solicitação.
+        {temAnalytics && ' Os cookies de análise só são ativados com o seu consentimento.'}
+      </p>
+
+      <h2>Com quem os dados são compartilhados</h2>
+      <p>
+        Os dados são armazenados por fornecedores que prestam serviço para o funcionamento do site,
+        como a hospedagem e o envio dos formulários (Netlify){temAnalytics && ' e a ferramenta de análise (Google)'}.
+        Esses fornecedores podem armazenar dados fora do Brasil, com as salvaguardas previstas na LGPD.
+      </p>
+
+      <h2>Por quanto tempo guardamos</h2>
+      <p>
+        Pelo tempo necessário para atender ao seu contato e cumprir obrigações legais. Depois disso,
+        os dados são excluídos ou anonimizados.
+      </p>
+
+      {temAnalytics && (
+        <>
+          <h2>Cookies</h2>
+          <p>
+            Usamos cookies de análise apenas se você aceitar no aviso exibido no site.
+            Você pode mudar sua escolha a qualquer momento em
+            <a href="#" data-preferencias-cookies>preferências de cookies</a>.
+          </p>
+        </>
+      )}
+
+      <h2>Seus direitos</h2>
+      <p>
+        Você pode pedir a confirmação de que tratamos seus dados, o acesso, a correção, a exclusão,
+        a portabilidade e informações sobre o compartilhamento, além de revogar o consentimento.
+        Também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).
+      </p>
+
+      <h2>Contato</h2>
+      <p>
+        Para exercer seus direitos ou tirar dúvidas sobre esta política, fale conosco
+        {contatoPrivacidade ? (
+          <>pelo e-mail <a href={`mailto:${contatoPrivacidade}`}>{contatoPrivacidade}</a>.</>
+        ) : (
+          <>pela página de <a href="/contato">contato</a>.</>
+        )}
+      </p>
+    </article>
+  </section>
+</Base>
+
+<style>
+  .politica h2 {
+    font-size: var(--titulo-3);
+    margin-top: var(--esp-6);
+  }
+  .politica ul {
+    padding-left: var(--esp-5);
+    margin: 0 0 var(--esp-4);
+  }
+  .politica li {
+    margin-bottom: var(--esp-2);
+  }
+</style>

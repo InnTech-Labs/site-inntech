@@ -1,0 +1,41 @@
+---
+/**
+ * Página inicial DO TEMPLATE: mostra os componentes disponíveis.
+ * Em cada site, substitua todo este conteúdo pelos textos aprovados no mapa do site.
+ */
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import FAQ from '../components/FAQ.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../lib/site';
+import faq from '../content/faq.json';
+---
+
+<Base titulo={site.nome}>
+  <Hero
+    titulo="Template base dos sites"
+    subtitulo="Astro, CSS com tokens e componentes prontos. Cada site novo nasce daqui e recebe a própria identidade."
+    cta={{ rotulo: 'Ver contato', href: '/contato' }}
+    ctaSecundario={{ rotulo: 'Perguntas frequentes', href: '#faq' }}
+  />
+
+  <section class="secao secao--suave">
+    <div class="container">
+      <h2>Componentes disponíveis</h2>
+      <p class="subtitulo texto-largo">Todos usam os tokens de identidade e funcionam do celular ao desktop.</p>
+      <div class="grade">
+        <Card titulo="Header e Footer" texto="Navegação, CTA e contatos lidos de site.json." />
+        <Card titulo="Hero e CTA" texto="Primeira dobra e faixa de chamada para ação." />
+        <Card titulo="Card e FAQ" texto="Serviços, diferenciais e perguntas com dados estruturados." />
+        <Card titulo="Formulário" texto="Netlify Forms com honeypot e aviso de uso de dados." href="/contato" rotuloLink="Ver formulário" />
+      </div>
+    </div>
+  </section>
+
+  <div id="faq">
+    <FAQ itens={faq} />
+  </div>
+
+  <CTA titulo="Pronto para começar um site?" texto="Crie um repositório a partir deste template e siga o README." />
+</Base>

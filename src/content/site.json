@@ -1,0 +1,45 @@
+{
+  "nome": "Nome do Site",
+  "url": "https://example.com",
+  "idioma": "pt-BR",
+  "descricao": "Descrição padrão do site, usada quando a página não define a sua. Até 155 caracteres.",
+  "imagemOg": "/og-image.png",
+  "logo": "/logo.svg",
+
+  "contato": {
+    "telefone": "",
+    "whatsapp": "",
+    "whatsappMensagem": "Olá! Vim pelo site e gostaria de mais informações.",
+    "email": "",
+    "endereco": "",
+    "cidade": "",
+    "estado": "",
+    "pais": "BR"
+  },
+
+  "redes": {
+    "instagram": "",
+    "linkedin": "",
+    "youtube": "",
+    "facebook": ""
+  },
+
+  "navegacao": [
+    { "rotulo": "Início", "href": "/" },
+    { "rotulo": "Contato", "href": "/contato" }
+  ],
+
+  "cta": {
+    "rotulo": "Fale conosco",
+    "href": "/contato"
+  },
+
+  "formulario": {
+    "nome": "contato",
+    "assuntos": []
+  },
+
+  "analytics": {
+    "ga4": ""
+  }
+}

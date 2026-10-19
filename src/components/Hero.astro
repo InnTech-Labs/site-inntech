@@ -1,0 +1,76 @@
+---
+/**
+ * Primeira dobra da página.
+ * Props: titulo (vira o <h1>), subtitulo, cta principal e secundário opcionais,
+ * imagem opcional (use imagens otimizadas: WebP/AVIF, com largura e altura).
+ */
+interface Acao {
+  rotulo: string;
+  href: string;
+}
+interface Props {
+  titulo: string;
+  subtitulo?: string;
+  cta?: Acao;
+  ctaSecundario?: Acao;
+  imagem?: { src: string; alt: string; largura: number; altura: number };
+}
+const { titulo, subtitulo, cta, ctaSecundario, imagem } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container hero__grade" data-com-imagem={imagem ? '' : undefined}>
+    <div>
+      <h1>{titulo}</h1>
+      {subtitulo && <p class="subtitulo">{subtitulo}</p>}
+      {(cta || ctaSecundario) && (
+        <div class="hero__acoes">
+          {cta && <a class="botao" href={cta.href}>{cta.rotulo}</a>}
+          {ctaSecundario && <a class="botao botao--secundario" href={ctaSecundario.href}>{ctaSecundario.rotulo}</a>}
+        </div>
+      )}
+      <slot />
+    </div>
+    {imagem && (
+      <img
+        class="hero__imagem"
+        src={imagem.src}
+        alt={imagem.alt}
+        width={imagem.largura}
+        height={imagem.altura}
+        fetchpriority="high"
+      />
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--esp-secao);
+  }
+  .hero__grade {
+    display: grid;
+    gap: var(--esp-7);
+    align-items: center;
+  }
+  .hero h1 {
+    max-width: 20ch;
+  }
+  .hero .subtitulo {
+    max-width: var(--largura-texto);
+  }
+  .hero__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-3);
+    margin-top: var(--esp-5);
+  }
+  .hero__imagem {
+    border-radius: var(--raio-lg);
+  }
+  @media (min-width: 900px) {
+    .hero__grade[data-com-imagem] {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+</style>

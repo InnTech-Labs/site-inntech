@@ -1,0 +1,98 @@
+---
+/**
+ * Layout base de todas as páginas: <head> com SEO, Open Graph, dados estruturados,
+ * cabeçalho, rodapé, botão de WhatsApp e aviso de cookies.
+ *
+ * Uso:
+ *   <Base titulo="Serviços" descricao="..." >conteúdo</Base>
+ *
+ * - titulo: título da página (vira "Título | Nome do site"). Na home, use o nome do site.
+ * - descricao: até ~155 caracteres, única por página.
+ * - imagem: caminho da imagem de compartilhamento (1200×630). Padrão: site.imagemOg.
+ * - semIndexar: true para páginas que não devem ir ao Google (ex.: /obrigado).
+ */
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import ConsentimentoCookies from '../components/ConsentimentoCookies.astro';
+import { site, ehPrevia, urlAbsoluta, redesAtivas, digitos } from '../lib/site';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  imagem?: string;
+  semIndexar?: boolean;
+}
+
+const { titulo, descricao = site.descricao, imagem = site.imagemOg, semIndexar = false } = Astro.props;
+
+const tituloCompleto = titulo === site.nome ? site.nome : `${titulo} | ${site.nome}`;
+const canonica = urlAbsoluta(Astro.url.pathname);
+const imagemAbsoluta = urlAbsoluta(imagem);
+const naoIndexar = semIndexar || ehPrevia;
+
+// Dados estruturados (Organization). Troque por LocalBusiness se o site tiver atendimento presencial.
+const dadosEstruturados = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.nome,
+  url: site.url,
+  logo: urlAbsoluta(site.logo),
+  ...(site.contato.email && { email: site.contato.email }),
+  ...(site.contato.telefone && { telephone: `+${digitos(site.contato.telefone)}` }),
+  ...(site.contato.cidade && {
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.contato.endereco || undefined,
+      addressLocality: site.contato.cidade,
+      addressRegion: site.contato.estado || undefined,
+      addressCountry: site.contato.pais,
+    },
+  }),
+  ...(redesAtivas().length && { sameAs: redesAtivas().map((r) => r.url) }),
+};
+---
+
+<!doctype html>
+<html lang={site.idioma}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonica} />
+    {naoIndexar && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Open Graph / compartilhamento -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.nome} />
+    <meta property="og:locale" content={site.idioma.replace('-', '_')} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:image" content={imagemAbsoluta} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(dadosEstruturados)} />
+
+    <!-- Fontes da identidade: importe aqui (ver README, "Fontes"). -->
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsApp paginaTitulo={titulo} />
+    <ConsentimentoCookies />
+  </body>
+</html>

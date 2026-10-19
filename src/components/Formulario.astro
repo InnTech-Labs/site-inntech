@@ -1,0 +1,122 @@
+---
+/**
+ * Formulário de contato com Netlify Forms + honeypot anti-spam.
+ *
+ * Como funciona: a Netlify detecta o formulário no HTML publicado e guarda os envios.
+ * Na Netlify, ative "Form detection" (Site configuration → Forms) e configure a
+ * notificação por e-mail (Forms → Form notifications). Registre o destino no SITE.md.
+ *
+ * LGPD: pede só o necessário e informa a finalidade. Não adicione campos sem motivo.
+ */
+import { site } from '../lib/site';
+
+interface Props {
+  nome?: string;
+  assuntos?: string[];
+}
+const { nome = site.formulario.nome, assuntos = site.formulario.assuntos } = Astro.props;
+---
+
+<form
+  class="formulario"
+  name={nome}
+  method="POST"
+  action="/obrigado"
+  data-netlify="true"
+  netlify-honeypot="campo-robo"
+>
+  <input type="hidden" name="form-name" value={nome} />
+  <input type="hidden" name="pagina" value={Astro.url.pathname} />
+
+  <!-- Honeypot: invisível para pessoas; robôs preenchem e o envio é descartado. -->
+  <p class="visualmente-oculto" aria-hidden="true">
+    <label>Não preencha este campo: <input name="campo-robo" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="campo">
+    <label for="f-nome">Nome</label>
+    <input id="f-nome" name="nome" type="text" autocomplete="name" required />
+  </div>
+
+  <div class="grade-campos">
+    <div class="campo">
+      <label for="f-email">E-mail</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" required />
+    </div>
+    <div class="campo">
+      <label for="f-telefone">Telefone ou WhatsApp <span class="opcional">(opcional)</span></label>
+      <input id="f-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+  </div>
+
+  {assuntos.length > 0 && (
+    <div class="campo">
+      <label for="f-assunto">Assunto</label>
+      <select id="f-assunto" name="assunto" required>
+        <option value="">Selecione</option>
+        {assuntos.map((assunto) => <option value={assunto}>{assunto}</option>)}
+      </select>
+    </div>
+  )}
+
+  <div class="campo">
+    <label for="f-mensagem">Mensagem</label>
+    <textarea id="f-mensagem" name="mensagem" rows="5" required></textarea>
+  </div>
+
+  <p class="aviso-dados">
+    Usamos seus dados apenas para responder a este contato.
+    Veja a <a href="/politica-de-privacidade">política de privacidade</a>.
+  </p>
+
+  <button class="botao" type="submit">Enviar mensagem</button>
+</form>
+
+<style>
+  .formulario {
+    display: grid;
+    gap: var(--esp-4);
+    max-width: var(--largura-texto);
+  }
+  .grade-campos {
+    display: grid;
+    gap: var(--esp-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+  .campo {
+    display: grid;
+    gap: var(--esp-1);
+  }
+  label {
+    font-weight: 600;
+  }
+  .opcional {
+    font-weight: 400;
+    color: var(--cor-texto-suave);
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: var(--esp-3);
+    font: inherit;
+    color: var(--cor-texto);
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    border-color: var(--cor-foco);
+  }
+  .aviso-dados {
+    font-size: var(--texto-sm);
+    color: var(--cor-texto-suave);
+    margin: 0;
+  }
+  .formulario .botao {
+    justify-self: start;
+  }
+</style>

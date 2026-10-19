@@ -1,0 +1,67 @@
+/*
+  Tokens da identidade do site.
+  ÚNICO lugar onde cores, fontes e medidas são definidas.
+  Em cada site novo, substitua os valores abaixo pela identidade do briefing
+  e registre a escolha no SITE.md (seção "Identidade").
+
+  Os valores deste template são neutros de propósito: o template não tem marca.
+  Garanta contraste AA (4,5:1 para texto, 3:1 para texto grande e elementos de interface).
+*/
+:root {
+  /* Cores de marca */
+  --cor-primaria: #1f4fd1;
+  --cor-primaria-escura: #173c9f;
+  --cor-sobre-primaria: #ffffff;
+  --cor-acento: #0e8a7a;
+
+  /* Superfícies e texto */
+  --cor-fundo: #ffffff;
+  --cor-fundo-suave: #f4f5f7;
+  --cor-superficie: #ffffff;
+  --cor-texto: #16181d;
+  --cor-texto-suave: #4a505c;
+  --cor-borda: #dcdfe5;
+  --cor-foco: #1f4fd1;
+  --cor-erro: #b42318;
+  --cor-sucesso: #12715b;
+
+  /* Tipografia — troque pelas fontes da identidade (ver README, "Fontes") */
+  --fonte-titulo: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fonte-texto: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --peso-titulo: 700;
+  --peso-texto: 400;
+
+  /* Escala de tamanhos (fluida entre 360 px e 1280 px) */
+  --texto-sm: 0.875rem;
+  --texto-base: 1rem;
+  --texto-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --titulo-3: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --titulo-2: clamp(1.625rem, 1.4rem + 1.1vw, 2.25rem);
+  --titulo-1: clamp(2rem, 1.6rem + 2vw, 3.25rem);
+  --altura-linha: 1.6;
+  --altura-linha-titulo: 1.15;
+
+  /* Espaçamentos */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2rem;
+  --esp-7: 3rem;
+  --esp-8: 4.5rem;
+  --esp-secao: clamp(3rem, 2rem + 4vw, 6rem);
+
+  /* Layout */
+  --largura-max: 72rem;
+  --largura-texto: 42rem;
+  --gutter: 1rem;
+
+  /* Forma */
+  --raio: 0.5rem;
+  --raio-lg: 1rem;
+  --sombra: 0 1px 2px rgb(16 24 40 / 0.06), 0 4px 12px rgb(16 24 40 / 0.06);
+
+  /* Movimento */
+  --transicao: 180ms ease;
+}

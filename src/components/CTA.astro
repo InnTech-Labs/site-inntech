@@ -1,0 +1,53 @@
+---
+/** Faixa de chamada para ação, normalmente no fim das páginas. */
+import { site } from '../lib/site';
+
+interface Props {
+  titulo: string;
+  texto?: string;
+  rotulo?: string;
+  href?: string;
+}
+const { titulo, texto, rotulo = site.cta.rotulo, href = site.cta.href } = Astro.props;
+---
+
+<section class="cta">
+  <div class="container cta__interno">
+    <div>
+      <h2>{titulo}</h2>
+      {texto && <p>{texto}</p>}
+    </div>
+    <a class="botao cta__botao" href={href}>{rotulo}</a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--esp-secao);
+    background: var(--cor-primaria);
+    color: var(--cor-sobre-primaria);
+  }
+  .cta__interno {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-5);
+  }
+  .cta h2 {
+    margin-bottom: var(--esp-2);
+  }
+  .cta p {
+    margin: 0;
+    max-width: var(--largura-texto);
+  }
+  .cta__botao {
+    background: var(--cor-sobre-primaria);
+    border-color: var(--cor-sobre-primaria);
+    color: var(--cor-primaria);
+  }
+  .cta__botao:hover {
+    background: transparent;
+    color: var(--cor-sobre-primaria);
+  }
+</style>

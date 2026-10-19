@@ -1,0 +1,10 @@
+[
+  {
+    "pergunta": "Onde ficam os textos do site?",
+    "resposta": "Em src/content: site.json guarda nome, contatos, navegação e redes; os demais arquivos guardam os textos de cada seção. Assim dá para editar o conteúdo sem mexer nos componentes."
+  },
+  {
+    "pergunta": "Como troco as cores e as fontes?",
+    "resposta": "Em src/styles/tokens.css. Todos os componentes usam esses tokens, então a identidade muda em um lugar só."
+  }
+]

@@ -1,0 +1,77 @@
+---
+/**
+ * Perguntas frequentes em acordeão (<details>, sem JavaScript) com dados
+ * estruturados FAQPage para o Google.
+ * Props: itens = [{ pergunta, resposta }]. Guarde os textos em src/content/faq.json.
+ */
+interface Item {
+  pergunta: string;
+  resposta: string;
+}
+interface Props {
+  titulo?: string;
+  itens: Item[];
+}
+const { titulo = 'Perguntas frequentes', itens } = Astro.props;
+
+const dados = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: itens.map((item) => ({
+    '@type': 'Question',
+    name: item.pergunta,
+    acceptedAnswer: { '@type': 'Answer', text: item.resposta },
+  })),
+};
+---
+
+{itens.length > 0 && (
+  <section class="secao">
+    <div class="container texto-largo">
+      <h2>{titulo}</h2>
+      <div class="faq">
+        {itens.map((item) => (
+          <details>
+            <summary>{item.pergunta}</summary>
+            <p>{item.resposta}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+    <script type="application/ld+json" set:html={JSON.stringify(dados)} />
+  </section>
+)}
+
+<style>
+  .faq {
+    border-top: 1px solid var(--cor-borda);
+  }
+  details {
+    border-bottom: 1px solid var(--cor-borda);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--esp-4);
+    padding: var(--esp-4) 0;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    font-size: 1.25em;
+    line-height: 1;
+    color: var(--cor-primaria);
+  }
+  details[open] summary::after {
+    content: '−';
+  }
+  details p {
+    color: var(--cor-texto-suave);
+    padding-bottom: var(--esp-4);
+  }
+</style>

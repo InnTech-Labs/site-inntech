@@ -1,0 +1,148 @@
+---
+/**
+ * Cabeçalho com logo, navegação (de site.json) e CTA.
+ * No celular, o menu abre num <details>, que funciona sem JavaScript.
+ */
+import { site } from '../lib/site';
+
+const atual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const ehAtual = (href: string) => (href === '/' ? atual === '/' : atual.startsWith(href));
+---
+
+<header class="cabecalho">
+  <div class="container cabecalho__interno">
+    <a class="cabecalho__logo" href="/" aria-label={`${site.nome} — página inicial`}>
+      <img src={site.logo} alt={site.nome} width="160" height="40" />
+    </a>
+
+    <nav class="nav nav--desktop" aria-label="Principal">
+      <ul>
+        {site.navegacao.map((item) => (
+          <li>
+            <a href={item.href} aria-current={ehAtual(item.href) ? 'page' : undefined}>{item.rotulo}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="botao" href={site.cta.href}>{site.cta.rotulo}</a>
+    </nav>
+
+    <details class="nav nav--movel">
+      <summary aria-label="Abrir menu">
+        <span class="nav__icone" aria-hidden="true"></span>
+        <span>Menu</span>
+      </summary>
+      <nav aria-label="Principal (celular)">
+        <ul>
+          {site.navegacao.map((item) => (
+            <li>
+              <a href={item.href} aria-current={ehAtual(item.href) ? 'page' : undefined}>{item.rotulo}</a>
+            </li>
+          ))}
+        </ul>
+        <a class="botao" href={site.cta.href}>{site.cta.rotulo}</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda);
+  }
+  .cabecalho__interno {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-4);
+    min-height: 4rem;
+  }
+  .cabecalho__logo img {
+    height: 2.5rem;
+    width: auto;
+  }
+  .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav a:not(.botao) {
+    color: var(--cor-texto);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .nav a:not(.botao):hover,
+  .nav a[aria-current='page'] {
+    color: var(--cor-primaria);
+  }
+
+  .nav--desktop {
+    display: none;
+    align-items: center;
+    gap: var(--esp-6);
+  }
+  .nav--desktop ul {
+    display: flex;
+    gap: var(--esp-5);
+  }
+
+  .nav--movel summary {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-2);
+    min-height: 2.75rem;
+    padding: 0 var(--esp-3);
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+  }
+  .nav--movel summary::-webkit-details-marker {
+    display: none;
+  }
+  .nav__icone,
+  .nav__icone::before,
+  .nav__icone::after {
+    display: block;
+    width: 1.25rem;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+  .nav__icone {
+    position: relative;
+  }
+  .nav__icone::before,
+  .nav__icone::after {
+    content: '';
+    position: absolute;
+  }
+  .nav__icone::before { top: -6px; }
+  .nav__icone::after { top: 6px; }
+
+  .nav--movel nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    padding: var(--esp-4) var(--gutter) var(--esp-5);
+    background: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda);
+    box-shadow: var(--sombra);
+  }
+  .nav--movel li a {
+    display: block;
+    padding: var(--esp-3) 0;
+  }
+  .nav--movel .botao {
+    margin-top: var(--esp-3);
+    width: 100%;
+  }
+
+  @media (min-width: 900px) {
+    .nav--desktop { display: flex; }
+    .nav--movel { display: none; }
+  }
+</style>

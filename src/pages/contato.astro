@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Formulario from '../components/Formulario.astro';
+import { site, digitos, linkWhatsapp } from '../lib/site';
+
+const { contato } = site;
+const whatsapp = linkWhatsapp('Contato');
+---
+
+<Base titulo="Contato" descricao={`Fale com ${site.nome} pelo formulário, WhatsApp ou e-mail.`}>
+  <section class="secao">
+    <div class="container contato">
+      <div>
+        <h1>Contato</h1>
+        <p class="subtitulo">Envie sua mensagem e retornaremos o mais breve possível.</p>
+        <ul class="canais">
+          {whatsapp && <li><a href={whatsapp} target="_blank" rel="noopener">Conversar pelo WhatsApp</a></li>}
+          {contato.telefone && <li><a href={`tel:+${digitos(contato.telefone)}`}>{contato.telefone}</a></li>}
+          {contato.email && <li><a href={`mailto:${contato.email}`}>{contato.email}</a></li>}
+        </ul>
+      </div>
+      <Formulario />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contato {
+    display: grid;
+    gap: var(--esp-7);
+  }
+  .canais {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--esp-2);
+  }
+  @media (min-width: 900px) {
+    .contato {
+      grid-template-columns: 1fr 1.3fr;
+    }
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+/**
+ * Aviso de cookies (LGPD). Só aparece se houver Google Analytics configurado
+ * em site.json (analytics.ga4). O Analytics só carrega DEPOIS que a pessoa aceita.
+ * A escolha fica salva no navegador; o link "Preferências de cookies" no rodapé
+ * da política de privacidade permite mudar de ideia.
+ */
+import { site } from '../lib/site';
+const ga4 = site.analytics.ga4;
+---
+
+{ga4 && (
+  <div class="cookies" data-ga4={ga4} hidden role="region" aria-label="Aviso de cookies">
+    <p>
+      Usamos cookies de análise para entender como o site é usado e melhorá-lo.
+      Saiba mais na <a href="/politica-de-privacidade">política de privacidade</a>.
+    </p>
+    <div class="cookies__acoes">
+      <button type="button" class="botao botao--secundario" data-escolha="recusado">Recusar</button>
+      <button type="button" class="botao" data-escolha="aceito">Aceitar</button>
+    </div>
+  </div>
+)}
+
+<script>
+  const CHAVE = 'consentimento-cookies';
+  const aviso = document.querySelector<HTMLElement>('.cookies');
+
+  function ler(): string | null {
+    try {
+      return localStorage.getItem(CHAVE);
+    } catch {
+      return null;
+    }
+  }
+  function salvar(valor: string) {
+    try {
+      localStorage.setItem(CHAVE, valor);
+    } catch {
+      /* navegador sem armazenamento: a escolha vale só nesta visita */
+    }
+  }
+
+  function carregarAnalytics(id: string) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(script);
+    const w = window as any;
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () {
+      w.dataLayer.push(arguments);
+    };
+    w.gtag('js', new Date());
+    w.gtag('config', id, { anonymize_ip: true });
+  }
+
+  if (aviso) {
+    const id = aviso.dataset.ga4!;
+    const escolha = ler();
+    if (escolha === 'aceito') carregarAnalytics(id);
+    if (!escolha) aviso.hidden = false;
+
+    aviso.querySelectorAll<HTMLButtonElement>('[data-escolha]').forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const valor = botao.dataset.escolha!;
+        salvar(valor);
+        aviso.hidden = true;
+        if (valor === 'aceito') carregarAnalytics(id);
+      });
+    });
+
+    // Permite reabrir o aviso a partir de qualquer link com data-preferencias-cookies.
+    document.querySelectorAll('[data-preferencias-cookies]').forEach((link) => {
+      link.addEventListener('click', (evento) => {
+        evento.preventDefault();
+        aviso.hidden = false;
+      });
+    });
+  }
+</script>
+
+<style>
+  .cookies {
+    position: fixed;
+    left: var(--esp-4);
+    right: var(--esp-4);
+    bottom: var(--esp-4);
+    z-index: 60;
+    max-width: 36rem;
+    padding: var(--esp-5);
+    background: var(--cor-superficie);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-lg);
+    box-shadow: var(--sombra);
+    font-size: var(--texto-sm);
+  }
+  .cookies[hidden] {
+    display: none;
+  }
+  .cookies__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-3);
+    justify-content: flex-end;
+  }
+</style>
