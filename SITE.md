@@ -83,11 +83,12 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - Vídeo/render do InnLoco Comando (hero, página do produto e prints da demonstração).
 - Link do LinkedIn quando existir.
 - ID do GA4 e configuração do Search Console.
-- Netlify: ativar Form detection e notificações dos três formulários.
-- Área de demonstração: ligar o webhook dos pedidos neste projeto (notificação "HTTP POST request" do formulário `solicitar-acesso-demo` → https://demo.inntechlabs.com.br/api/pedido); conteúdo das demos a enviar.
-- Lançamento: confirmar o HTTPS (cadeado) no domínio, testar os formulários de ponta a ponta, testar envio e recebimento no contato@ depois da mudança de DNS e testar em celular real (Android e iPhone).
+- Área de demonstração: conteúdo das demos a enviar.
+- Lançamento: testar o formulário de contato no ar e testar em celular real (Android e iPhone).
 
 ## Histórico de alterações
 - 2026-10-19 — v1 publicada (home, soluções, InnLoco, demonstração, sobre, contato, políticas) — aprovada pelo Leo; autorizou também levar ao domínio (PR #1)
 - 2026-10-19 — Domínio inntechlabs.com.br apontado para a Netlify (DNS na Hostinger, e-mail preservado) — autorizado pelo Leo
 - 2026-10-19 — Correção: a URL canônica da home apontava para "/index" (o Google podia tratar outro endereço como a página principal); a checagem automática passa a conferir a canônica de todas as páginas; o endereço técnico inntechlabs.netlify.app passa a redirecionar para o domínio (PR #2)
+- 2026-10-19 — Form detection e notificações configuradas pelo Leo: contato → contato@, aviso-lancamento → comercial@ (assuntos "Site InnTech: …"), solicitar-acesso-demo → webhook da demo; pedido de demonstração testado de ponta a ponta
+- 2026-10-19 — Página "Pedido recebido" avisa para conferir o lixo eletrônico (o primeiro e-mail de acesso caiu no lixo do Hotmail, por ser domínio novo) (PR #3)
