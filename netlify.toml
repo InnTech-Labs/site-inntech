@@ -25,6 +25,14 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# O endereço técnico da Netlify leva para o domínio oficial: evita o site em dobro no Google.
+# As prévias (deploy-preview-N--inntechlabs.netlify.app) têm outro endereço e não são afetadas.
+[[redirects]]
+  from = "https://inntechlabs.netlify.app/*"
+  to = "https://inntechlabs.com.br/:splat"
+  status = 301
+  force = true
+
 # Redirects 301 de URLs antigas (quando o site substituir outro):
 # [[redirects]]
 #   from = "/pagina-antiga"

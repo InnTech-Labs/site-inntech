@@ -6,7 +6,7 @@
 - Hospedagem: Netlify — projeto `inntechlabs`, time InnTechLabs | Repositório: InnTech-Labs/site-inntech
 - E-mail do domínio: Hostinger Business Email — caixa principal com os aliases contato@, comercial@, financeiro@ e operacional@
 - DNS (Hostinger), apontado em 2026-10-19: A `@` → 75.2.60.5 · CNAME `www` → inntechlabs.netlify.app · CNAME `demo` → inntechlabs-demo.netlify.app. E-mail intacto: MX mx1/mx2.hostinger.com, SPF, DKIM (`hostingermail-*`) e DMARC.
-- HTTPS: certificado automático da Netlify (Let's Encrypt). O www redireciona para inntechlabs.com.br.
+- HTTPS: certificado automático da Netlify (Let's Encrypt), renovado sozinho. O www e o endereço técnico inntechlabs.netlify.app redirecionam para inntechlabs.com.br.
 - Status: no ar em inntechlabs.com.br | No ar desde: 2026-10-19
 
 ## Objetivo e públicos
@@ -90,4 +90,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 ## Histórico de alterações
 - 2026-10-19 — v1 publicada (home, soluções, InnLoco, demonstração, sobre, contato, políticas) — aprovada pelo Leo; autorizou também levar ao domínio (PR #1)
 - 2026-10-19 — Domínio inntechlabs.com.br apontado para a Netlify (DNS na Hostinger, e-mail preservado) — autorizado pelo Leo
-- 2026-10-19 — Correção: a URL canônica da home apontava para "/index" (o Google podia tratar outro endereço como a página principal); a checagem automática passa a conferir a canônica de todas as páginas (PR #2)
+- 2026-10-19 — Correção: a URL canônica da home apontava para "/index" (o Google podia tratar outro endereço como a página principal); a checagem automática passa a conferir a canônica de todas as páginas; o endereço técnico inntechlabs.netlify.app passa a redirecionar para o domínio (PR #2)
