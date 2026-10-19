@@ -6,7 +6,8 @@
  *  - lê todas as páginas do sitemap gerado no build (dist/sitemap-0.xml) + a 404;
  *  - abre cada página em 360, 768 e 1280 px e salva capturas em checagem/capturas/;
  *  - aponta erros de console, links internos quebrados, imagens sem alt,
- *    rolagem horizontal, páginas sem title/description e title/description repetidos.
+ *    rolagem horizontal, páginas sem title/description, title/description repetidos
+ *    e URL canônica que não aponta para a própria página.
  *
  * Uso:
  *   npm run build
@@ -79,6 +80,7 @@ for (const caminho of paginas) {
     titulo: document.title,
     descricao: document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
     ogImagem: document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '',
+    canonica: document.querySelector('link[rel="canonical"]')?.getAttribute('href') || '',
     h1: document.querySelectorAll('h1').length,
     semAlt: [...document.images].filter((img) => !img.hasAttribute('alt')).map((img) => img.src),
     links: [...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')),
@@ -92,6 +94,9 @@ for (const caminho of paginas) {
   errosConsole.forEach((erro) => anotar(caminho, 'console', erro));
 
   if (caminho !== '/404') {
+    // A canônica tem de apontar para a própria página (ex.: a home é "/", nunca "/index").
+    const caminhoCanonico = info.canonica ? new URL(info.canonica).pathname : '';
+    if (caminhoCanonico !== caminho) anotar(caminho, 'SEO', `canônica aponta para "${info.canonica || '(nenhuma)'}"`);
     titulos.set(info.titulo, [...(titulos.get(info.titulo) || []), caminho]);
     descricoes.set(info.descricao, [...(descricoes.get(info.descricao) || []), caminho]);
   }
