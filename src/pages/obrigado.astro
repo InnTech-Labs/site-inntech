@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import PaginaSimples from '../components/PaginaSimples.astro';
+import paginas from '../content/pt/paginas.json';
+const p = paginas.obrigado;
 ---
 
-<Base titulo="Mensagem enviada" descricao="Recebemos sua mensagem." semIndexar>
-  <section class="secao">
-    <div class="container texto-largo">
-      <h1>Mensagem enviada</h1>
-      <p class="subtitulo">Obrigado pelo contato. Recebemos sua mensagem e vamos responder em breve.</p>
-      <a class="botao" href="/">Voltar para o início</a>
-    </div>
-  </section>
+<Base titulo={p.seo.titulo} descricao={p.seo.descricao} semIndexar>
+  <div data-evento-pagina="contato_enviado">
+    <PaginaSimples titulo={p.titulo} texto={p.texto}>
+      <a class="botao botao--claro" href="/">{p.voltar}</a>
+    </PaginaSimples>
+  </div>
 </Base>

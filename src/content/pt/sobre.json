@@ -1,0 +1,34 @@
+{
+  "seo": {
+    "titulo": "Sobre | InnTech Labs",
+    "descricao": "A InnTech Labs estuda o problema e entrega a solução digital feita para a sua operação: simulação 3D, conteúdo interativo e gamificação."
+  },
+  "hero": {
+    "titulo": "Estudamos o tempo todo. Entregamos a solução feita para o seu caso.",
+    "subtitulo": "Tecnologia para a evolução das pessoas e da operação."
+  },
+  "territorio": {
+    "titulo": "Onde a gente entra",
+    "texto": "Treinamento, cultura, desenvolvimento das pessoas e inovação. A InnTech entra onde a empresa quer evoluir. Entendemos o problema, propomos, refazemos até ficar bom e crescemos junto."
+  },
+  "jeito": {
+    "titulo": "Como a gente trabalha",
+    "etapas": [
+      { "tag": "Problema", "estilo": "vermelho", "texto": "Tudo começa num problema real da operação, não numa ferramenta." },
+      { "tag": "Estudo", "estilo": "claro", "texto": "A gente estuda o procedimento, o ambiente e quem vai usar." },
+      { "tag": "Solução", "estilo": "contorno", "texto": "Entregamos o formato que resolve e ajustamos até ficar bom." }
+    ]
+  },
+  "promessa": {
+    "titulo": "Crescer junto.",
+    "texto": "Refazemos até ficar bom. Avisamos quando aparece algo que serve para você. E evoluímos com a sua operação."
+  },
+  "nome": {
+    "rotulo": "O nome",
+    "texto": "InnTech vem de inovação tecnológica."
+  },
+  "cta": {
+    "titulo": "Conte o seu desafio.",
+    "texto": "Ou veja primeiro o que a gente já faz, na demonstração."
+  }
+}

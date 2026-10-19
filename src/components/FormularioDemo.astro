@@ -1,0 +1,130 @@
+---
+/**
+ * Formulário "Solicitar acesso" à área de demonstração (Netlify Forms + honeypot).
+ *
+ * - Notificação: configurar na Netlify (Forms → solicitar-acesso-demo → Form notifications)
+ *   para comercial@inntechlabs.com.br. Quando a área de demo estiver no ar, um webhook
+ *   da Netlify envia cada pedido para ela (o pedido nunca se perde, mesmo se a demo cair).
+ * - E-mail gratuito (gmail, hotmail…) não é bloqueado: o campo oculto "email_gratuito"
+ *   sinaliza para o Leo decidir.
+ * - LGPD: aceite obrigatório, com link para a política de privacidade.
+ */
+interface Props {
+  areas: string[];
+  interesses: string[];
+}
+const { areas, interesses } = Astro.props;
+const nome = 'solicitar-acesso-demo';
+---
+
+<form
+  id="form-demo"
+  class="formulario"
+  name={nome}
+  method="POST"
+  action="/pedido-recebido"
+  data-netlify="true"
+  netlify-honeypot="campo-robo"
+>
+  <input type="hidden" name="form-name" value={nome} />
+  <input type="hidden" name="email_gratuito" value="não verificado" />
+  <p class="visualmente-oculto" aria-hidden="true">
+    <label>Não preencha: <input name="campo-robo" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="formulario__linha">
+    <div class="campo">
+      <label for="d-nome">Nome</label>
+      <input id="d-nome" name="nome" type="text" autocomplete="name" required />
+    </div>
+    <div class="campo">
+      <label for="d-empresa">Empresa</label>
+      <input id="d-empresa" name="empresa" type="text" autocomplete="organization" required />
+    </div>
+  </div>
+
+  <div class="formulario__linha">
+    <div class="campo">
+      <label for="d-cargo">Cargo</label>
+      <input id="d-cargo" name="cargo" type="text" autocomplete="organization-title" required />
+    </div>
+    <div class="campo">
+      <label for="d-area">Área</label>
+      <select id="d-area" name="area" required>
+        <option value="">Selecione</option>
+        {areas.map((area) => <option value={area}>{area}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div class="formulario__linha">
+    <div class="campo">
+      <label for="d-email">E-mail corporativo</label>
+      <input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+    </div>
+    <div class="campo">
+      <label for="d-telefone">Telefone ou WhatsApp</label>
+      <input id="d-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required />
+    </div>
+  </div>
+
+  <fieldset class="grupo">
+    <legend>O que você quer ver</legend>
+    <div class="opcoes">
+      {interesses.map((interesse, i) => (
+        <label class="opcao">
+          <input type="checkbox" name="interesse[]" value={interesse} data-interesse={i === 0 ? 'primeiro' : undefined} />
+          <span>{interesse}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="campo">
+    <label for="d-mensagem">Mensagem <span class="opcional">(opcional)</span></label>
+    <textarea id="d-mensagem" name="mensagem" rows="4"></textarea>
+  </div>
+
+  <label class="consentimento">
+    <input type="checkbox" name="aceite_lgpd" value="sim" required />
+    <span>
+      Concordo com o uso dos meus dados para análise do pedido, envio do acesso e contato da InnTech Labs,
+      conforme a <a href="/politica-de-privacidade">política de privacidade</a>.
+    </span>
+  </label>
+
+  <div class="acoes">
+    <button class="botao" type="submit">Solicitar acesso</button>
+    <p class="formulario__nota">Prefira o e-mail corporativo: ele agiliza a análise.</p>
+  </div>
+</form>
+
+<script>
+  // Domínios de e-mail gratuito: sinaliza no pedido, sem bloquear.
+  const GRATUITOS = [
+    'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.com.br', 'outlook.com', 'outlook.com.br',
+    'live.com', 'msn.com', 'yahoo.com', 'yahoo.com.br', 'ymail.com', 'icloud.com', 'me.com',
+    'bol.com.br', 'uol.com.br', 'terra.com.br', 'ig.com.br', 'globo.com', 'globomail.com',
+    'aol.com', 'gmx.com', 'proton.me', 'protonmail.com', 'zipmail.com.br',
+  ];
+
+  const form = document.querySelector<HTMLFormElement>('#form-demo');
+  if (form) {
+    const email = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+    const sinal = form.querySelector<HTMLInputElement>('input[name="email_gratuito"]')!;
+    const interesses = [...form.querySelectorAll<HTMLInputElement>('input[name="interesse[]"]')];
+    const primeiro = interesses[0];
+
+    const exigirInteresse = () => {
+      const algum = interesses.some((caixa) => caixa.checked);
+      primeiro?.setCustomValidity(algum ? '' : 'Escolha pelo menos uma opção.');
+    };
+    interesses.forEach((caixa) => caixa.addEventListener('change', exigirInteresse));
+    exigirInteresse();
+
+    form.addEventListener('submit', () => {
+      const dominio = email.value.trim().toLowerCase().split('@')[1] || '';
+      sinal.value = GRATUITOS.includes(dominio) ? 'SIM — e-mail gratuito, verificar' : 'não';
+    });
+  }
+</script>

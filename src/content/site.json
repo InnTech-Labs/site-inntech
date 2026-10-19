@@ -1,16 +1,21 @@
 {
-  "nome": "Nome do Site",
-  "url": "https://example.com",
+  "nome": "InnTech Labs",
+  "razaoSocial": "INN TECH LTDA",
+  "cnpj": "",
+  "url": "https://inntechlabs.com.br",
   "idioma": "pt-BR",
-  "descricao": "Descrição padrão do site, usada quando a página não define a sua. Até 155 caracteres.",
+  "descricao": "Tecnologia para a evolução das pessoas e da operação.",
+  "assinatura": "Estudo, solução, resultado.",
   "imagemOg": "/og-image.png",
-  "logo": "/logo.svg",
+  "logo": "/marca/inntech-labs-logo.svg",
 
   "contato": {
-    "telefone": "",
-    "whatsapp": "",
-    "whatsappMensagem": "Olá! Vim pelo site e gostaria de mais informações.",
-    "email": "",
+    "telefone": "(22) 99232-7533",
+    "telefoneInternacional": "+55 22 99232-7533",
+    "whatsapp": "+55 22 99232-7533",
+    "whatsappMensagem": "Olá! Vim pelo site da InnTech Labs e quero saber mais.",
+    "email": "contato@inntechlabs.com.br",
+    "emailComercial": "comercial@inntechlabs.com.br",
     "endereco": "",
     "cidade": "",
     "estado": "",
@@ -18,20 +23,28 @@
   },
 
   "redes": {
-    "instagram": "",
+    "instagram": "https://www.instagram.com/inntechlabs/",
     "linkedin": "",
     "youtube": "",
     "facebook": ""
   },
 
   "navegacao": [
-    { "rotulo": "Início", "href": "/" },
+    { "rotulo": "Soluções", "href": "/solucoes" },
+    { "rotulo": "InnLoco", "href": "/innloco" },
+    { "rotulo": "Demonstração", "href": "/demonstracao" },
+    { "rotulo": "Sobre", "href": "/sobre" },
     { "rotulo": "Contato", "href": "/contato" }
   ],
 
   "cta": {
-    "rotulo": "Fale conosco",
-    "href": "/contato"
+    "rotulo": "Solicitar demonstração",
+    "href": "/demonstracao#solicitar"
+  },
+
+  "demo": {
+    "url": "https://demo.inntechlabs.com.br",
+    "rotuloEntrar": "Entrar"
   },
 
   "formulario": {

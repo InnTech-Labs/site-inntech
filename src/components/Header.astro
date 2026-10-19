@@ -1,148 +1,200 @@
 ---
 /**
- * Cabeçalho com logo, navegação (de site.json) e CTA.
+ * Cabeçalho: logo InnTech Labs (versão Labs, ≥150 px, como pede o manual), navegação e CTA.
  * No celular, o menu abre num <details>, que funciona sem JavaScript.
  */
 import { site } from '../lib/site';
 
-const atual = Astro.url.pathname.replace(/\/$/, '') || '/';
+const atual = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const ehAtual = (href: string) => (href === '/' ? atual === '/' : atual.startsWith(href));
 ---
 
 <header class="cabecalho">
   <div class="container cabecalho__interno">
-    <a class="cabecalho__logo" href="/" aria-label={`${site.nome} — página inicial`}>
-      <img src={site.logo} alt={site.nome} width="160" height="40" />
+    <a class="cabecalho__logo" href="/" aria-label={`${site.nome}, página inicial`}>
+      <img src={site.logo} alt={site.nome} width="168" height="60" />
     </a>
 
     <nav class="nav nav--desktop" aria-label="Principal">
-      <ul>
+      <ul role="list">
         {site.navegacao.map((item) => (
           <li>
             <a href={item.href} aria-current={ehAtual(item.href) ? 'page' : undefined}>{item.rotulo}</a>
           </li>
         ))}
       </ul>
-      <a class="botao" href={site.cta.href}>{site.cta.rotulo}</a>
     </nav>
 
-    <details class="nav nav--movel">
-      <summary aria-label="Abrir menu">
-        <span class="nav__icone" aria-hidden="true"></span>
-        <span>Menu</span>
-      </summary>
-      <nav aria-label="Principal (celular)">
-        <ul>
-          {site.navegacao.map((item) => (
-            <li>
-              <a href={item.href} aria-current={ehAtual(item.href) ? 'page' : undefined}>{item.rotulo}</a>
-            </li>
-          ))}
-        </ul>
-        <a class="botao" href={site.cta.href}>{site.cta.rotulo}</a>
-      </nav>
-    </details>
+    <div class="cabecalho__acoes">
+      <a class="botao cabecalho__cta" href={site.cta.href}>{site.cta.rotulo}</a>
+
+      <details class="menu">
+        <summary>
+          <span class="menu__icone" aria-hidden="true"><span></span></span>
+          <span class="menu__rotulo">Menu</span>
+        </summary>
+        <nav class="menu__painel" aria-label="Principal (celular)">
+          <ul role="list">
+            {site.navegacao.map((item) => (
+              <li>
+                <a href={item.href} aria-current={ehAtual(item.href) ? 'page' : undefined}>{item.rotulo}</a>
+              </li>
+            ))}
+          </ul>
+          <a class="botao botao--bloco" href={site.cta.href}>{site.cta.rotulo}</a>
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
+
+<script>
+  // Fecha o menu do celular ao escolher um link (inclusive âncoras na mesma página) ou com Esc.
+  const menu = document.querySelector<HTMLDetailsElement>('.menu');
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => (menu.open = false)));
+  document.addEventListener('keydown', (evento) => {
+    if (evento.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+</script>
 
 <style>
   .cabecalho {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--cor-fundo);
-    border-bottom: 1px solid var(--cor-borda);
+    background: var(--preto);
+    border-bottom: 1px solid var(--cinza);
   }
   .cabecalho__interno {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--esp-4);
-    min-height: 4rem;
+    gap: var(--esp-5);
+    min-height: 4.5rem;
+  }
+  .cabecalho__logo {
+    flex: none;
+    padding-block: 0.5rem;
   }
   .cabecalho__logo img {
-    height: 2.5rem;
-    width: auto;
+    width: 150px; /* tamanho mínimo da versão Labs na tela */
+    height: auto;
   }
+
   .nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    gap: clamp(var(--esp-4), 2vw, var(--esp-6));
   }
-  .nav a:not(.botao) {
-    color: var(--cor-texto);
+  .nav a,
+  .menu__painel li a {
+    color: var(--claro-suave);
     text-decoration: none;
     font-weight: 500;
+    transition: color var(--transicao);
   }
-  .nav a:not(.botao):hover,
-  .nav a[aria-current='page'] {
-    color: var(--cor-primaria);
+  .nav a:hover,
+  .menu__painel li a:hover {
+    color: var(--claro);
   }
-
+  .nav a[aria-current='page'],
+  .menu__painel a[aria-current='page'] {
+    color: var(--claro);
+    text-decoration: underline;
+    text-decoration-color: var(--vermelho);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.45em;
+  }
   .nav--desktop {
     display: none;
-    align-items: center;
-    gap: var(--esp-6);
-  }
-  .nav--desktop ul {
-    display: flex;
-    gap: var(--esp-5);
   }
 
-  .nav--movel summary {
+  .cabecalho__acoes {
+    display: flex;
+    align-items: center;
+    gap: var(--esp-3);
+  }
+  .cabecalho__cta {
+    display: none;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.9375rem;
+  }
+
+  .menu summary {
     display: flex;
     align-items: center;
     gap: var(--esp-2);
     min-height: 2.75rem;
-    padding: 0 var(--esp-3);
+    padding: 0 0.6rem;
     cursor: pointer;
     list-style: none;
-    font-weight: 600;
+    font-family: var(--fonte-mono);
+    font-size: var(--texto-rotulo);
+    letter-spacing: var(--tracking-rotulo);
+    text-transform: uppercase;
+    color: var(--claro);
   }
-  .nav--movel summary::-webkit-details-marker {
+  .menu summary::-webkit-details-marker {
     display: none;
   }
-  .nav__icone,
-  .nav__icone::before,
-  .nav__icone::after {
-    display: block;
-    width: 1.25rem;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
-  }
-  .nav__icone {
+  .menu__icone {
     position: relative;
+    width: 1.25rem;
+    height: 0.875rem;
   }
-  .nav__icone::before,
-  .nav__icone::after {
+  .menu__icone::before,
+  .menu__icone::after,
+  .menu__icone span {
     content: '';
     position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transition: transform var(--transicao), opacity var(--transicao);
   }
-  .nav__icone::before { top: -6px; }
-  .nav__icone::after { top: 6px; }
+  .menu__icone::before { top: 0; }
+  .menu__icone span { top: 6px; }
+  .menu__icone::after { top: 12px; }
+  .menu[open] .menu__icone::before { transform: translateY(6px) rotate(45deg); }
+  .menu[open] .menu__icone span { opacity: 0; }
+  .menu[open] .menu__icone::after { transform: translateY(-6px) rotate(-45deg); }
 
-  .nav--movel nav {
+  .menu__painel {
     position: absolute;
     left: 0;
     right: 0;
     top: 100%;
-    padding: var(--esp-4) var(--gutter) var(--esp-5);
-    background: var(--cor-fundo);
-    border-bottom: 1px solid var(--cor-borda);
-    box-shadow: var(--sombra);
+    max-height: calc(100dvh - 4.5rem);
+    overflow-y: auto;
+    padding: var(--esp-3) var(--gutter) var(--esp-6);
+    background: var(--preto);
+    border-bottom: 1px solid var(--cinza);
   }
-  .nav--movel li a {
+  .menu__painel ul {
+    margin-bottom: var(--esp-5);
+  }
+  .menu__painel li a {
     display: block;
-    padding: var(--esp-3) 0;
-  }
-  .nav--movel .botao {
-    margin-top: var(--esp-3);
-    width: 100%;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--grafite);
+    font-family: var(--fonte-display);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--claro);
   }
 
-  @media (min-width: 900px) {
-    .nav--desktop { display: flex; }
-    .nav--movel { display: none; }
+  @media (min-width: 760px) {
+    .cabecalho__logo img { width: 160px; }
+    .cabecalho__cta { display: inline-flex; }
+  }
+  @media (min-width: 1100px) {
+    .nav--desktop { display: block; }
+    .menu { display: none; }
+    .cabecalho__logo img { width: 168px; }
   }
 </style>

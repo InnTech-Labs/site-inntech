@@ -1,9 +1,13 @@
 ---
 /**
- * Aviso de cookies (LGPD). Só aparece se houver Google Analytics configurado
- * em site.json (analytics.ga4). O Analytics só carrega DEPOIS que a pessoa aceita.
- * A escolha fica salva no navegador; o link "Preferências de cookies" no rodapé
- * da política de privacidade permite mudar de ideia.
+ * Aviso de cookies (LGPD) e medição de conversões.
+ *
+ * - Só aparece se houver Google Analytics configurado em site.json (analytics.ga4).
+ * - O Analytics só carrega DEPOIS que a pessoa aceita. Sem aceite, nenhum evento é enviado.
+ * - Conversões medidas (nomes dos eventos no GA4):
+ *     clique_whatsapp · clique_email · clique_entrar_demo  → links com data-evento="..."
+ *     pedido_demo · contato_enviado · aviso_innloco_campo  → páginas de confirmação (data-evento-pagina no <main>)
+ * - Links com data-preferencias-cookies reabrem o aviso (usado na política de cookies).
  */
 import { site } from '../lib/site';
 const ga4 = site.analytics.ga4;
@@ -13,11 +17,11 @@ const ga4 = site.analytics.ga4;
   <div class="cookies" data-ga4={ga4} hidden role="region" aria-label="Aviso de cookies">
     <p>
       Usamos cookies de análise para entender como o site é usado e melhorá-lo.
-      Saiba mais na <a href="/politica-de-privacidade">política de privacidade</a>.
+      Saiba mais na <a href="/politica-de-cookies">política de cookies</a>.
     </p>
     <div class="cookies__acoes">
-      <button type="button" class="botao botao--secundario" data-escolha="recusado">Recusar</button>
-      <button type="button" class="botao" data-escolha="aceito">Aceitar</button>
+      <button type="button" class="botao botao--grafite" data-escolha="recusado">Recusar</button>
+      <button type="button" class="botao botao--claro" data-escolha="aceito">Aceitar</button>
     </div>
   </div>
 )}
@@ -25,6 +29,7 @@ const ga4 = site.analytics.ga4;
 <script>
   const CHAVE = 'consentimento-cookies';
   const aviso = document.querySelector<HTMLElement>('.cookies');
+  const w = window as any;
 
   function ler(): string | null {
     try {
@@ -41,19 +46,33 @@ const ga4 = site.analytics.ga4;
     }
   }
 
+  function enviarEvento(nome: string, parametros: Record<string, string> = {}) {
+    if (typeof w.gtag === 'function') w.gtag('event', nome, parametros);
+  }
+
   function carregarAnalytics(id: string) {
+    if (w.gtag) return;
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
     document.head.appendChild(script);
-    const w = window as any;
     w.dataLayer = w.dataLayer || [];
     w.gtag = function () {
       w.dataLayer.push(arguments);
     };
     w.gtag('js', new Date());
-    w.gtag('config', id, { anonymize_ip: true });
+    w.gtag('config', id);
+
+    // Conversão de página (ex.: chegou na confirmação do pedido de demo).
+    const eventoPagina = document.querySelector<HTMLElement>('[data-evento-pagina]')?.dataset.eventoPagina;
+    if (eventoPagina) enviarEvento(eventoPagina);
   }
+
+  // Cliques que contam como conversão.
+  document.addEventListener('click', (evento) => {
+    const alvo = (evento.target as HTMLElement).closest<HTMLElement>('[data-evento]');
+    if (alvo) enviarEvento(alvo.dataset.evento!, { pagina: location.pathname });
+  });
 
   if (aviso) {
     const id = aviso.dataset.ga4!;
@@ -70,11 +89,11 @@ const ga4 = site.analytics.ga4;
       });
     });
 
-    // Permite reabrir o aviso a partir de qualquer link com data-preferencias-cookies.
     document.querySelectorAll('[data-preferencias-cookies]').forEach((link) => {
       link.addEventListener('click', (evento) => {
         evento.preventDefault();
         aviso.hidden = false;
+        aviso.querySelector<HTMLButtonElement>('[data-escolha="aceito"]')?.focus();
       });
     });
   }
@@ -87,13 +106,12 @@ const ga4 = site.analytics.ga4;
     right: var(--esp-4);
     bottom: var(--esp-4);
     z-index: 60;
-    max-width: 36rem;
+    max-width: 34rem;
     padding: var(--esp-5);
-    background: var(--cor-superficie);
-    border: 1px solid var(--cor-borda);
-    border-radius: var(--raio-lg);
-    box-shadow: var(--sombra);
+    background: var(--grafite);
+    border: 1px solid var(--cinza);
     font-size: var(--texto-sm);
+    color: var(--claro-suave);
   }
   .cookies[hidden] {
     display: none;

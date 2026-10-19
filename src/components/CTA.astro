@@ -1,5 +1,8 @@
 ---
-/** Faixa de chamada para ação, normalmente no fim das páginas. */
+/**
+ * Chamada final de cada página, sobre o padrão nn do kit.
+ * Por padrão leva ao pedido de demonstração (CTA principal do site).
+ */
 import { site } from '../lib/site';
 
 interface Props {
@@ -13,9 +16,9 @@ const { titulo, texto, rotulo = site.cta.rotulo, href = site.cta.href } = Astro.
 
 <section class="cta">
   <div class="container cta__interno">
-    <div>
+    <div class="cta__texto">
       <h2>{titulo}</h2>
-      {texto && <p>{texto}</p>}
+      {texto && <p class="lead">{texto}</p>}
     </div>
     <a class="botao cta__botao" href={href}>{rotulo}</a>
   </div>
@@ -23,31 +26,38 @@ const { titulo, texto, rotulo = site.cta.rotulo, href = site.cta.href } = Astro.
 
 <style>
   .cta {
+    position: relative;
+    isolation: isolate;
     padding-block: var(--esp-secao);
-    background: var(--cor-primaria);
-    color: var(--cor-sobre-primaria);
+    border-top: 1px solid var(--cinza);
+    background: var(--preto);
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--fundo-padrao-nn);
+    background-size: 840px auto;
+    background-position: left center;
   }
   .cta__interno {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: var(--esp-5);
+    gap: var(--esp-6);
+  }
+  .cta__texto {
+    max-width: 40rem;
   }
   .cta h2 {
-    margin-bottom: var(--esp-2);
+    font-size: var(--titulo-mega);
+    margin-bottom: var(--esp-3);
   }
-  .cta p {
+  .cta .lead {
     margin: 0;
-    max-width: var(--largura-texto);
-  }
-  .cta__botao {
-    background: var(--cor-sobre-primaria);
-    border-color: var(--cor-sobre-primaria);
-    color: var(--cor-primaria);
-  }
-  .cta__botao:hover {
-    background: transparent;
-    color: var(--cor-sobre-primaria);
+    color: var(--claro);
   }
 </style>

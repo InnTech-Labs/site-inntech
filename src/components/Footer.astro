@@ -1,101 +1,145 @@
 ---
-/** Rodapé com contatos, redes e links legais. Tudo vem de site.json. */
-import { site, redesAtivas, digitos, linkWhatsapp } from '../lib/site';
+/**
+ * Rodapé: régua de chanfros do kit, logo, navegação, contatos, redes e linha legal.
+ * Rede sem link (ex.: LinkedIn) e CNPJ vazio ficam ocultos até serem preenchidos em site.json.
+ */
+import { site, redesAtivas, linkWhatsapp, linkTelefone } from '../lib/site';
 
 const { contato } = site;
 const whatsapp = linkWhatsapp('Rodapé');
+const telefone = linkTelefone();
 const ano = new Date().getFullYear();
-const nomesRedes: Record<string, string> = {
-  instagram: 'Instagram',
-  linkedin: 'LinkedIn',
-  youtube: 'YouTube',
-  facebook: 'Facebook',
-};
 ---
 
 <footer class="rodape">
-  <div class="container rodape__grade">
-    <div>
-      <img src={site.logo} alt={site.nome} width="160" height="40" class="rodape__logo" />
-      <p class="rodape__descricao">{site.descricao}</p>
+  <div class="container">
+    <img class="rodape__regua" src="/marca/regua-chanfros.svg" alt="" width="294" height="14" />
+
+    <div class="rodape__grade">
+      <div class="rodape__marca">
+        <img src={site.logo} alt={site.nome} width="168" height="60" />
+        <p>{site.descricao}</p>
+      </div>
+
+      <nav aria-label="Rodapé">
+        <h2 class="rotulo">Navegação</h2>
+        <ul role="list">
+          {site.navegacao.map((item) => <li><a href={item.href}>{item.rotulo}</a></li>)}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="rotulo">Contato</h2>
+        <ul role="list">
+          {whatsapp && <li><a href={whatsapp} target="_blank" rel="noopener" data-evento="clique_whatsapp">WhatsApp</a></li>}
+          {telefone && <li><a href={telefone}>{contato.telefone}</a></li>}
+          <li><a href={`mailto:${contato.email}`} data-evento="clique_email">{contato.email}</a></li>
+        </ul>
+      </div>
+
+      {redesAtivas().length > 0 && (
+        <div>
+          <h2 class="rotulo">Redes</h2>
+          <ul role="list">
+            {redesAtivas().map((rede) => (
+              <li><a href={rede.url} target="_blank" rel="noopener">{rede.nome}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
 
-    {(contato.telefone || contato.email || whatsapp || contato.endereco) && (
-      <div>
-        <h2 class="rodape__titulo">Contato</h2>
-        <ul>
-          {contato.telefone && <li><a href={`tel:+${digitos(contato.telefone)}`}>{contato.telefone}</a></li>}
-          {whatsapp && <li><a href={whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>}
-          {contato.email && <li><a href={`mailto:${contato.email}`}>{contato.email}</a></li>}
-          {contato.endereco && <li>{contato.endereco}{contato.cidade && ` — ${contato.cidade}/${contato.estado}`}</li>}
-        </ul>
-      </div>
-    )}
-
-    {redesAtivas().length > 0 && (
-      <div>
-        <h2 class="rodape__titulo">Redes</h2>
-        <ul>
-          {redesAtivas().map((rede) => (
-            <li><a href={rede.url} target="_blank" rel="noopener">{nomesRedes[rede.nome] ?? rede.nome}</a></li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
-
-  <div class="container rodape__base">
-    <p>© {ano} {site.nome}. Todos os direitos reservados.</p>
-    <a href="/politica-de-privacidade">Política de privacidade</a>
+    <div class="rodape__legal">
+      <p>
+        {site.nome} · {site.razaoSocial}{site.cnpj && ` · CNPJ ${site.cnpj}`} · © {ano}
+      </p>
+      <ul role="list">
+        <li><a href="/politica-de-privacidade">Política de privacidade</a></li>
+        <li><a href="/politica-de-cookies">Política de cookies</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 
 <style>
   .rodape {
-    background: var(--cor-fundo-suave);
-    border-top: 1px solid var(--cor-borda);
+    background: var(--preto);
+    border-top: 1px solid var(--cinza);
     padding-top: var(--esp-7);
     font-size: var(--texto-sm);
+  }
+  .rodape__regua {
+    width: 196px;
+    height: auto;
+    margin-bottom: var(--esp-7);
   }
   .rodape__grade {
     display: grid;
     gap: var(--esp-6);
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
   }
-  .rodape__logo {
-    height: 2.25rem;
-    width: auto;
-    margin-bottom: var(--esp-3);
+  .rodape__marca {
+    grid-column: 1 / -1;
   }
-  .rodape__descricao {
-    color: var(--cor-texto-suave);
-    max-width: 22rem;
+  .rodape__marca img {
+    width: 150px;
+    height: auto;
+    margin-bottom: var(--esp-4);
   }
-  .rodape__titulo {
-    font-size: var(--texto-base);
+  .rodape__marca p {
+    color: var(--claro-suave);
+    max-width: 20rem;
+    margin: 0;
+  }
+  .rodape h2 {
     margin-bottom: var(--esp-3);
   }
   .rodape ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: grid;
     gap: var(--esp-2);
   }
   .rodape a {
-    color: var(--cor-texto);
+    color: var(--claro-suave);
+    text-decoration: none;
   }
-  .rodape__base {
+  .rodape a:hover {
+    color: var(--claro);
+    text-decoration: underline;
+    text-decoration-color: var(--vermelho);
+  }
+  .rodape__legal {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--esp-3);
-    margin-top: var(--esp-6);
-    padding-block: var(--esp-5);
-    border-top: 1px solid var(--cor-borda);
-    color: var(--cor-texto-suave);
+    gap: var(--esp-3) var(--esp-5);
+    margin-top: var(--esp-7);
+    padding-block: var(--esp-5) calc(var(--esp-5) + 4.5rem); /* espaço para o botão flutuante */
+    border-top: 1px solid var(--grafite);
+    color: var(--claro-rotulo);
+    font-family: var(--fonte-mono);
+    font-size: var(--texto-rotulo);
+    letter-spacing: 0.04em;
   }
-  .rodape__base p {
+  .rodape__legal p {
     margin: 0;
+  }
+  .rodape__legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-2) var(--esp-5);
+  }
+  .rodape__legal a {
+    color: var(--claro-rotulo);
+  }
+  @media (min-width: 900px) {
+    .rodape__grade {
+      grid-template-columns: 2fr 1fr 1.4fr 1fr;
+    }
+    .rodape__marca {
+      grid-column: auto;
+    }
+    .rodape__legal {
+      padding-bottom: var(--esp-5);
+    }
   }
 </style>

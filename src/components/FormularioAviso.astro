@@ -1,0 +1,49 @@
+---
+/**
+ * "Quero ser avisado" para lançamentos (ex.: InnLoco Campo). Só e-mail + aceite.
+ * Notificação: Netlify → Forms → aviso-lancamento → comercial@inntechlabs.com.br.
+ */
+interface Props {
+  produto: string;
+}
+const { produto } = Astro.props;
+const nome = 'aviso-lancamento';
+---
+
+<form class="formulario aviso" name={nome} method="POST" action="/aviso-confirmado" data-netlify="true" netlify-honeypot="campo-robo">
+  <input type="hidden" name="form-name" value={nome} />
+  <input type="hidden" name="produto" value={produto} />
+  <p class="visualmente-oculto" aria-hidden="true">
+    <label>Não preencha: <input name="campo-robo" tabindex="-1" autocomplete="off" /></label>
+  </p>
+  <div class="aviso__linha">
+    <div class="campo">
+      <label for="a-email">Seu e-mail</label>
+      <input id="a-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+    </div>
+    <button class="botao botao--claro" type="submit">Quero ser avisado</button>
+  </div>
+  <label class="consentimento">
+    <input type="checkbox" name="aceite_lgpd" value="sim" required />
+    <span>
+      Concordo em receber o aviso de lançamento do {produto}, conforme a{' '}
+      <a href="/politica-de-privacidade">política de privacidade</a>.
+    </span>
+  </label>
+</form>
+
+<style>
+  .aviso {
+    max-width: 36rem;
+  }
+  .aviso__linha {
+    display: grid;
+    gap: var(--esp-4);
+    align-items: end;
+  }
+  @media (min-width: 640px) {
+    .aviso__linha {
+      grid-template-columns: 1fr auto;
+    }
+  }
+</style>

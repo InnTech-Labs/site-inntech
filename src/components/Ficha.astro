@@ -1,0 +1,101 @@
+---
+/**
+ * Ficha de produto no estilo "item de jogo": nome, status e atributos em rótulos técnicos.
+ * Usada no destaque do InnLoco. Só atributos verdadeiros e confirmados.
+ */
+interface Atributo {
+  rotulo: string;
+  valor: string;
+}
+interface Props {
+  nome: string;
+  status?: string;
+  atributos: Atributo[];
+  proximo?: { nome: string; status: string; texto: string } | null;
+}
+const { nome, status, atributos, proximo = null } = Astro.props;
+---
+
+<article class="ficha moldura">
+  <header class="ficha__topo">
+    <p class="rotulo">Produto</p>
+    {status && <span class="tag tag--vermelho">{status}</span>}
+  </header>
+  <h3 class="ficha__nome">{nome}</h3>
+  <dl class="ficha__atributos">
+    {atributos.map((a) => (
+      <div>
+        <dt class="rotulo">{a.rotulo}</dt>
+        <dd>{a.valor}</dd>
+      </div>
+    ))}
+  </dl>
+  {proximo && (
+    <footer class="ficha__proximo">
+      <div class="ficha__proximo-topo">
+        <h4>{proximo.nome}</h4>
+        <span class="tag tag--contorno">{proximo.status}</span>
+      </div>
+      <p>{proximo.texto}</p>
+    </footer>
+  )}
+</article>
+
+<style>
+  .ficha {
+    padding: var(--esp-3);
+  }
+  .ficha__topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    margin-bottom: var(--esp-4);
+  }
+  .ficha__topo .rotulo {
+    margin: 0;
+  }
+  .ficha__nome {
+    font-size: var(--titulo-3);
+    margin-bottom: var(--esp-5);
+  }
+  .ficha__atributos {
+    margin: 0;
+    display: grid;
+  }
+  .ficha__atributos div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: var(--esp-3);
+    padding: var(--esp-3) 0;
+    border-top: 1px solid var(--cinza);
+  }
+  .ficha__atributos dt {
+    padding-top: 0.2rem;
+  }
+  .ficha__atributos dd {
+    margin: 0;
+    color: var(--claro);
+    font-weight: 500;
+  }
+  .ficha__proximo {
+    margin-top: var(--esp-4);
+    padding-top: var(--esp-5);
+    border-top: 1px dashed var(--cinza);
+  }
+  .ficha__proximo-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--esp-3);
+    margin-bottom: var(--esp-2);
+  }
+  .ficha__proximo h4 {
+    margin: 0;
+  }
+  .ficha__proximo p {
+    margin: 0;
+    color: var(--claro-suave);
+    font-size: var(--texto-sm);
+  }
+</style>

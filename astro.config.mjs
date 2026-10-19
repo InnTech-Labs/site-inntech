@@ -15,7 +15,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Páginas que não devem aparecer no Google.
-      filter: (page) => !page.includes('/obrigado'),
+      filter: (page) => !['/obrigado', '/pedido-recebido', '/aviso-confirmado'].some((rota) => page.includes(rota)),
     }),
   ],
 });

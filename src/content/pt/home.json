@@ -1,0 +1,60 @@
+{
+  "seo": {
+    "titulo": "InnTech Labs | Simulação 3D e treinamento gamificado",
+    "descricao": "Simulação 3D para treinamento, conteúdo SCORM interativo e gamificação para operações industriais e offshore. Peça sua demonstração."
+  },
+  "hero": {
+    "titulo": "Transformamos procedimentos e operações em experiências digitais que as pessoas realmente usam.",
+    "subtitulo": "Simulação 3D, conteúdo interativo e gamificação, feitos para a sua operação.",
+    "acaoPrincipal": "Solicitar demonstração",
+    "acaoSecundaria": "Conhecer soluções",
+    "video": { "src": "", "poster": "", "descricao": "Vídeo do InnLoco Comando em funcionamento" }
+  },
+  "entregamos": {
+    "titulo": "Quatro formatos para tirar o procedimento do papel.",
+    "rotuloLink": "Ver solução"
+  },
+  "innloco": {
+    "status": "Lançamento",
+    "titulo": "InnLoco Comando",
+    "chamada": "A operação inteira em 3D, com a visão do todo.",
+    "texto": "Uma simulação operacional que roda no navegador. Quem vai operar entende o fluxo antes de entrar nele.",
+    "acaoPrincipal": "Conhecer o InnLoco",
+    "acaoSecundaria": "Ver na demonstração"
+  },
+  "manifesto": {
+    "frase": "O procedimento tem 40 páginas. A operação tem 40 segundos.",
+    "virada": "O erro não é das pessoas: é do formato."
+  },
+  "comoFunciona": {
+    "titulo": "Do seu procedimento à tela do seu time.",
+    "passos": [
+      { "titulo": "Entendemos sua operação", "texto": "A gente estuda o procedimento, o ambiente e quem vai usar." },
+      { "titulo": "Desenhamos a experiência", "texto": "Escolhemos o formato que resolve: 3D, interativo, jogo ou diálogo." },
+      { "titulo": "Produzimos", "texto": "Construímos, testamos e ajustamos com você até ficar bom." },
+      { "titulo": "Entregamos pronto", "texto": "Na sua plataforma, no formato que ela aceita." }
+    ]
+  },
+  "paraQuem": {
+    "titulo": "Para quem responde pela operação.",
+    "itens": [
+      { "area": "SMS e Segurança do Trabalho", "dor": "Procedimento no papel não chega na hora do risco." },
+      { "area": "RH e T&D", "dor": "Treinamento que só cumpre carga horária não muda comportamento." },
+      { "area": "Operação", "dor": "Parar para treinar custa caro. Errar no campo custa mais." },
+      { "area": "Inovação", "dor": "Inovação que fica no piloto não transforma a operação." }
+    ]
+  },
+  "porQue": {
+    "titulo": "Por que a InnTech",
+    "itens": [
+      { "titulo": "Ambiente industrial e offshore", "texto": "Experiência em produção para operações industriais e offshore." },
+      { "titulo": "Pronto para o seu LMS", "texto": "Entrega em SCORM, o padrão aceito pelos principais LMS." },
+      { "titulo": "Produção ágil", "texto": "Ciclos curtos e ajustes rápidos, até ficar bom." },
+      { "titulo": "Feito para engajar", "texto": "Experiência pensada para ser usada, não só para cumprir obrigação." }
+    ]
+  },
+  "cta": {
+    "titulo": "Veja funcionando.",
+    "texto": "Peça seu acesso à demonstração."
+  }
+}

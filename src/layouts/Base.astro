@@ -1,16 +1,23 @@
 ---
 /**
  * Layout base de todas as páginas: <head> com SEO, Open Graph, dados estruturados,
- * cabeçalho, rodapé, botão de WhatsApp e aviso de cookies.
+ * fontes da marca, cabeçalho, rodapé, botão de WhatsApp e aviso de cookies.
  *
  * Uso:
- *   <Base titulo="Serviços" descricao="..." >conteúdo</Base>
+ *   <Base titulo="Soluções" descricao="..." >conteúdo</Base>
  *
- * - titulo: título da página (vira "Título | Nome do site"). Na home, use o nome do site.
+ * - titulo: título da página (vira "Título | InnTech Labs").
+ * - tituloSeo: título completo, quando a página precisa de um diferente do padrão (ex.: home).
  * - descricao: até ~155 caracteres, única por página.
- * - imagem: caminho da imagem de compartilhamento (1200×630). Padrão: site.imagemOg.
- * - semIndexar: true para páginas que não devem ir ao Google (ex.: /obrigado).
+ * - imagem: imagem de compartilhamento (1200×630). Padrão: site.imagemOg.
+ * - semIndexar: true para páginas que não devem ir ao Google (ex.: páginas de obrigado).
  */
+import '@fontsource/space-grotesk/latin-700.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
+import fonteDisplay from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
+import fonteTexto from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -20,36 +27,31 @@ import { site, ehPrevia, urlAbsoluta, redesAtivas, digitos } from '../lib/site';
 
 interface Props {
   titulo: string;
+  tituloSeo?: string;
   descricao?: string;
   imagem?: string;
   semIndexar?: boolean;
 }
 
-const { titulo, descricao = site.descricao, imagem = site.imagemOg, semIndexar = false } = Astro.props;
+const { titulo, tituloSeo, descricao = site.descricao, imagem = site.imagemOg, semIndexar = false } = Astro.props;
 
-const tituloCompleto = titulo === site.nome ? site.nome : `${titulo} | ${site.nome}`;
-const canonica = urlAbsoluta(Astro.url.pathname);
+const tituloCompleto = tituloSeo ?? (titulo === site.nome ? site.nome : `${titulo} | ${site.nome}`);
+const canonica = urlAbsoluta(Astro.url.pathname.replace(/\.html$/, ''));
 const imagemAbsoluta = urlAbsoluta(imagem);
 const naoIndexar = semIndexar || ehPrevia;
 
-// Dados estruturados (Organization). Troque por LocalBusiness se o site tiver atendimento presencial.
+// Dados estruturados de Organização (o site não destaca cidade, por decisão do briefing).
 const dadosEstruturados = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: site.nome,
+  legalName: site.razaoSocial,
   url: site.url,
-  logo: urlAbsoluta(site.logo),
-  ...(site.contato.email && { email: site.contato.email }),
-  ...(site.contato.telefone && { telephone: `+${digitos(site.contato.telefone)}` }),
-  ...(site.contato.cidade && {
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: site.contato.endereco || undefined,
-      addressLocality: site.contato.cidade,
-      addressRegion: site.contato.estado || undefined,
-      addressCountry: site.contato.pais,
-    },
-  }),
+  logo: urlAbsoluta('/icon-512.png'),
+  description: site.descricao,
+  ...(site.cnpj && { taxID: site.cnpj }),
+  email: site.contato.email,
+  telephone: `+${digitos(site.contato.telefoneInternacional)}`,
   ...(redesAtivas().length && { sameAs: redesAtivas().map((r) => r.url) }),
 };
 ---
@@ -64,11 +66,17 @@ const dadosEstruturados = {
     <link rel="canonical" href={canonica} />
     {naoIndexar && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#ffffff" />
+    <link rel="preload" href={fonteDisplay} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fonteTexto} as="font" type="font/woff2" crossorigin />
 
-    <!-- Open Graph / compartilhamento -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-64.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0f0f10" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Compartilhamento (WhatsApp, LinkedIn, Instagram) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.nome} />
     <meta property="og:locale" content={site.idioma.replace('-', '_')} />
@@ -78,11 +86,10 @@ const dadosEstruturados = {
     <meta property="og:image" content={imagemAbsoluta} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.nome} — ${site.descricao}`} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(dadosEstruturados)} />
-
-    <!-- Fontes da identidade: importe aqui (ver README, "Fontes"). -->
     <slot name="head" />
   </head>
   <body>

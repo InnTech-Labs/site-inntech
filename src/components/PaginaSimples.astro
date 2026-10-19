@@ -1,0 +1,53 @@
+---
+/** Bloco central para páginas curtas: confirmações, 404. */
+interface Props {
+  rotulo?: string;
+  titulo: string;
+  texto?: string;
+}
+const { rotulo, titulo, texto } = Astro.props;
+---
+
+<section class="simples">
+  <div class="container simples__interno">
+    {rotulo && <p class="rotulo">{rotulo}</p>}
+    <h1>{titulo}</h1>
+    {texto && <p class="lead">{texto}</p>}
+    <div class="simples__acoes">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .simples {
+    position: relative;
+    isolation: isolate;
+    min-height: 60vh;
+    display: grid;
+    align-items: center;
+    padding-block: var(--esp-secao);
+  }
+  .simples::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--fundo-grade);
+    background-size: 560px 560px;
+    opacity: 0.5;
+  }
+  .simples__interno {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+  .simples .rotulo {
+    margin-bottom: var(--esp-4);
+  }
+  .simples h1 {
+    font-size: var(--titulo-mega);
+  }
+  .simples__acoes {
+    margin-top: var(--esp-6);
+  }
+</style>

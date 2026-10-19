@@ -1,0 +1,71 @@
+---
+/**
+ * Passos numerados (bloco 001 do kit) ligados por um trilho.
+ * Só para conteúdo que é sequência de verdade. O último passo leva o ponto vermelho
+ * (é o resultado: "entregamos pronto").
+ */
+interface Passo {
+  titulo: string;
+  texto: string;
+}
+interface Props {
+  passos: Passo[];
+}
+const { passos } = Astro.props;
+const numero = (i: number) => String(i + 1).padStart(3, '0');
+---
+
+<ol class="passos" role="list" style={`--total:${passos.length}`}>
+  {passos.map((passo, i) => (
+    <li class="passo">
+      <span class:list={['numero', { 'numero--destaque': i === passos.length - 1 }]} aria-hidden="true">{numero(i)}</span>
+      <h3 class="passo__titulo">
+        <span class="visualmente-oculto">Passo {i + 1}: </span>{passo.titulo}
+      </h3>
+      <p>{passo.texto}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .passos {
+    display: grid;
+    gap: var(--esp-6);
+    counter-reset: passo;
+  }
+  .passo {
+    position: relative;
+    padding-left: 0;
+  }
+  .passo__titulo {
+    font-size: var(--titulo-4);
+    margin: var(--esp-4) 0 var(--esp-2);
+  }
+  .passo p {
+    color: var(--claro-suave);
+    margin: 0;
+    max-width: 22rem;
+  }
+  /* trilho vertical no celular */
+  .passo:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 2.6rem;
+    top: 1.25rem;
+    width: calc(100% - 2.6rem);
+    height: 1px;
+    background: var(--cinza);
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .passos {
+      grid-template-columns: repeat(var(--total), minmax(0, 1fr));
+      gap: var(--esp-5);
+    }
+    .passo:not(:last-child)::after {
+      display: block;
+      left: 5.5rem;
+      width: calc(100% - 5.5rem);
+    }
+  }
+</style>

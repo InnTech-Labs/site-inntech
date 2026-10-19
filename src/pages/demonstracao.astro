@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Icone from '../components/Icone.astro';
+import Passos from '../components/Passos.astro';
+import FormularioDemo from '../components/FormularioDemo.astro';
+import { site } from '../lib/site';
+import demo from '../content/pt/demonstracao.json';
+import solucoes from '../content/pt/solucoes.json';
+
+const interesses = solucoes.itens.filter((item) => item.ativo).map((item) => item.nome);
+---
+
+<Base titulo="Demonstração" tituloSeo={demo.seo.titulo} descricao={demo.seo.descricao}>
+  <Hero
+    titulo={demo.hero.titulo}
+    subtitulo={demo.hero.subtitulo}
+    compacto
+    acoes={[{ rotulo: demo.hero.acaoPrincipal, href: '#solicitar' }]}
+  >
+    <p class="entrar">
+      <span>{demo.hero.jaTemAcesso}</span>
+      <a class="botao botao--grafite" href={site.demo.url} data-evento="clique_entrar_demo">{site.demo.rotuloEntrar}</a>
+    </p>
+  </Hero>
+
+  <section class="secao secao--painel" aria-labelledby="catalogo-titulo">
+    <div class="container">
+      <header class="secao__cabecalho">
+        <h2 id="catalogo-titulo">{demo.catalogo.titulo}</h2>
+      </header>
+      <ul class="catalogo" role="list">
+        {demo.catalogo.itens.map((item) => (
+          <li class="slot moldura moldura--preta">
+            <Icone nome={item.icone as any} tamanho={40} class="slot__icone" />
+            <div>
+              <h3>{item.titulo}</h3>
+              <p>{item.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="acesso-titulo">
+    <div class="container">
+      <header class="secao__cabecalho">
+        <h2 id="acesso-titulo">{demo.acesso.titulo}</h2>
+      </header>
+      <Passos passos={demo.acesso.passos} />
+    </div>
+  </section>
+
+  <section class="secao secao--painel solicitar" id="solicitar" aria-labelledby="solicitar-titulo">
+    <div class="container solicitar__grade">
+      <header>
+        <h2 id="solicitar-titulo">{demo.formulario.titulo}</h2>
+        <p class="lead">{demo.formulario.texto}</p>
+      </header>
+      <div class="solicitar__form painel">
+        <FormularioDemo areas={demo.formulario.areas} interesses={interesses} />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .entrar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--esp-3) var(--esp-4);
+    margin: var(--esp-5) 0 0;
+    color: var(--claro-suave);
+  }
+  .catalogo {
+    display: grid;
+    gap: var(--esp-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .slot {
+    display: flex;
+    gap: var(--esp-4);
+    align-items: flex-start;
+    padding: var(--esp-3);
+  }
+  .slot :global(.slot__icone) {
+    flex: none;
+    color: var(--claro);
+  }
+  .slot h3 {
+    font-size: var(--titulo-4);
+    margin-bottom: var(--esp-1);
+  }
+  .slot p {
+    margin: 0;
+    color: var(--claro-suave);
+  }
+  .solicitar {
+    scroll-margin-top: 4.5rem;
+  }
+  .solicitar__grade {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .solicitar__form {
+    background: var(--preto);
+    padding: clamp(var(--esp-5), 1rem + 2vw, var(--esp-7));
+  }
+  .solicitar__form :global(.campo input),
+  .solicitar__form :global(.campo select),
+  .solicitar__form :global(.campo textarea),
+  .solicitar__form :global(.opcao) {
+    background-color: var(--grafite);
+  }
+  @media (min-width: 980px) {
+    .solicitar__grade {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: var(--esp-8);
+      align-items: start;
+    }
+  }
+</style>

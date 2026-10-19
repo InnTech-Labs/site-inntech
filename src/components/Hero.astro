@@ -1,76 +1,135 @@
 ---
 /**
- * Primeira dobra da página.
- * Props: titulo (vira o <h1>), subtitulo, cta principal e secundário opcionais,
- * imagem opcional (use imagens otimizadas: WebP/AVIF, com largura e altura).
+ * Primeira dobra. Texto à esquerda, visual à direita (no celular, visual embaixo).
+ * Props:
+ *  - titulo (h1), subtitulo, acoes [{ rotulo, href, estilo: 'principal' | 'claro' | 'grafite', evento? }]
+ *  - tag: selo curto acima do título (ex.: "Lançamento"), só quando informa status
+ *  - video: { src, poster, descricao } — quando existir, entra na moldura no lugar do slot "visual"
+ * Slot "visual": ilustração padrão (ex.: <MapaOperacao />).
  */
 interface Acao {
   rotulo: string;
   href: string;
+  estilo?: 'principal' | 'claro' | 'grafite';
+  evento?: string;
 }
 interface Props {
   titulo: string;
   subtitulo?: string;
-  cta?: Acao;
-  ctaSecundario?: Acao;
-  imagem?: { src: string; alt: string; largura: number; altura: number };
+  tag?: string;
+  acoes?: Acao[];
+  video?: { src: string; poster: string; descricao: string } | null;
+  compacto?: boolean;
 }
-const { titulo, subtitulo, cta, ctaSecundario, imagem } = Astro.props;
+const { titulo, subtitulo, tag, acoes = [], video = null, compacto = false } = Astro.props;
+const temVisual = Boolean(video?.src) || Astro.slots.has('visual');
+const classeBotao = (estilo: Acao['estilo']) =>
+  estilo === 'claro' ? 'botao botao--claro' : estilo === 'grafite' ? 'botao botao--grafite' : 'botao';
 ---
 
-<section class="hero">
-  <div class="container hero__grade" data-com-imagem={imagem ? '' : undefined}>
-    <div>
+<section class:list={['hero', { 'hero--compacto': compacto }]}>
+  <div class:list={['container', 'hero__grade', { 'hero__grade--visual': temVisual }]}>
+    <div class="hero__texto">
+      {tag && <span class="tag tag--contorno hero__tag">{tag}</span>}
       <h1>{titulo}</h1>
-      {subtitulo && <p class="subtitulo">{subtitulo}</p>}
-      {(cta || ctaSecundario) && (
-        <div class="hero__acoes">
-          {cta && <a class="botao" href={cta.href}>{cta.rotulo}</a>}
-          {ctaSecundario && <a class="botao botao--secundario" href={ctaSecundario.href}>{ctaSecundario.rotulo}</a>}
+      {subtitulo && <p class="lead hero__subtitulo">{subtitulo}</p>}
+      {acoes.length > 0 && (
+        <div class="acoes hero__acoes">
+          {acoes.map((acao) => (
+            <a class={classeBotao(acao.estilo)} href={acao.href} data-evento={acao.evento}>{acao.rotulo}</a>
+          ))}
         </div>
       )}
       <slot />
     </div>
-    {imagem && (
-      <img
-        class="hero__imagem"
-        src={imagem.src}
-        alt={imagem.alt}
-        width={imagem.largura}
-        height={imagem.altura}
-        fetchpriority="high"
-      />
+
+    {temVisual && (
+      <div class="hero__visual">
+        {video?.src ? (
+          <figure class="moldura moldura--clara hero__video">
+            <video
+              src={video.src}
+              poster={video.poster}
+              muted
+              loop
+              playsinline
+              autoplay
+              preload="metadata"
+              aria-label={video.descricao}
+              data-respeita-movimento
+            ></video>
+          </figure>
+        ) : (
+          <slot name="visual" />
+        )}
+      </div>
     )}
   </div>
 </section>
 
+<script>
+  // Vídeo de fundo: não roda sozinho para quem pediu menos movimento.
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('video[data-respeita-movimento]').forEach((video) => {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+  }
+</script>
+
 <style>
   .hero {
-    padding-block: var(--esp-secao);
+    position: relative;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 6rem) clamp(2rem, 1rem + 3vw, 4rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  /* Grade do kit atrás do hero, a 50% */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--fundo-grade);
+    background-size: 560px 560px;
+    background-position: center top;
+    opacity: 0.5;
+  }
+  .hero--compacto {
+    padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
   }
   .hero__grade {
     display: grid;
-    gap: var(--esp-7);
+    gap: clamp(var(--esp-7), 2rem + 3vw, var(--esp-8));
     align-items: center;
   }
+  .hero__tag {
+    margin-bottom: var(--esp-5);
+  }
   .hero h1 {
+    max-width: 17ch;
+    margin-bottom: var(--esp-5);
+  }
+  .hero--compacto h1 {
     max-width: 20ch;
   }
-  .hero .subtitulo {
-    max-width: var(--largura-texto);
+  .hero__subtitulo {
+    margin-bottom: 0;
   }
   .hero__acoes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--esp-3);
-    margin-top: var(--esp-5);
+    margin-top: var(--esp-6);
   }
-  .hero__imagem {
-    border-radius: var(--raio-lg);
+  .hero__video {
+    margin: 0;
   }
-  @media (min-width: 900px) {
-    .hero__grade[data-com-imagem] {
-      grid-template-columns: 1.1fr 1fr;
+  .hero__video video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  @media (min-width: 980px) {
+    .hero__grade--visual {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     }
   }
 </style>

@@ -1,0 +1,69 @@
+---
+/**
+ * Política de cookies. Texto aqui mesmo porque depende da configuração do Analytics:
+ * o link de "preferências" só aparece quando há GA4 configurado em site.json.
+ */
+import Base from '../layouts/Base.astro';
+import PaginaLegal from '../components/PaginaLegal.astro';
+import { site } from '../lib/site';
+
+const atualizadoEm = '18 de outubro de 2026';
+const temAnalytics = Boolean(site.analytics.ga4);
+---
+
+<Base
+  titulo="Política de cookies"
+  descricao="Quais cookies o site da InnTech Labs usa, para quê, e como você controla a sua escolha."
+>
+  <PaginaLegal titulo="Política de cookies" atualizadoEm={atualizadoEm}>
+    <p>
+      Cookies são pequenos arquivos guardados no seu navegador. Este site usa o mínimo possível, e os de análise só
+      funcionam se você aceitar.
+    </p>
+
+    <h2>Quais usamos</h2>
+    <div class="tabela">
+    <table>
+      <thead>
+        <tr><th scope="col">Tipo</th><th scope="col">Para quê</th><th scope="col">Quando</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Preferência de cookies</td>
+          <td>Guardar no seu navegador se você aceitou ou recusou os cookies de análise.</td>
+          <td>Sempre, para respeitar a sua escolha.</td>
+        </tr>
+        <tr>
+          <td>Análise (Google Analytics)</td>
+          <td>Entender, de forma agregada, como o site é usado: páginas visitadas, tempo no site, tipo de dispositivo e cliques em contato.</td>
+          <td>Só se você aceitar. Podem durar até 2 anos.</td>
+        </tr>
+        <tr>
+          <td>Sessão da área de demonstração</td>
+          <td>Manter você conectado na área de demonstração durante o acesso liberado.</td>
+          <td>Só para quem tem acesso, em demo.inntechlabs.com.br.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Como controlar</h2>
+    <p>
+      {temAnalytics ? (
+        <>
+          Você pode mudar sua escolha a qualquer momento em{' '}
+          <a href="#" data-preferencias-cookies>preferências de cookies</a>. Também é possível apagar os cookies nas
+          configurações do seu navegador.
+        </>
+      ) : (
+        <>Você pode apagar os cookies a qualquer momento nas configurações do seu navegador.</>
+      )}
+    </p>
+
+    <h2>Mais informações</h2>
+    <p>
+      Veja como tratamos seus dados na <a href="/politica-de-privacidade">política de privacidade</a> ou escreva para{' '}
+      <a href={`mailto:${site.contato.email}`}>{site.contato.email}</a>.
+    </p>
+  </PaginaLegal>
+</Base>

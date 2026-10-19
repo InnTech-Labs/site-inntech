@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+import sobre from '../content/pt/sobre.json';
+
+const classeTag = (estilo: string) =>
+  estilo === 'vermelho' ? 'tag tag--vermelho' : estilo === 'contorno' ? 'tag tag--contorno' : 'tag';
+---
+
+<Base titulo="Sobre" tituloSeo={sobre.seo.titulo} descricao={sobre.seo.descricao}>
+  <Hero titulo={sobre.hero.titulo} subtitulo={sobre.hero.subtitulo} compacto />
+
+  <section class="secao secao--painel" aria-labelledby="territorio-titulo">
+    <div class="container territorio">
+      <h2 id="territorio-titulo">{sobre.territorio.titulo}</h2>
+      <p class="territorio__texto">{sobre.territorio.texto}</p>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="jeito-titulo">
+    <div class="container">
+      <header class="secao__cabecalho">
+        <h2 id="jeito-titulo">{sobre.jeito.titulo}</h2>
+      </header>
+      <ol class="etapas" role="list">
+        {sobre.jeito.etapas.map((etapa) => (
+          <li class="etapa">
+            <span class={classeTag(etapa.estilo)}>{etapa.tag}</span>
+            <p>{etapa.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao secao--vinho promessa" aria-labelledby="promessa-titulo">
+    <div class="container promessa__grade">
+      <h2 id="promessa-titulo" class="promessa__titulo">{sobre.promessa.titulo}</h2>
+      <div>
+        <p class="promessa__texto">{sobre.promessa.texto}</p>
+        <p class="promessa__nome"><span class="rotulo">{sobre.nome.rotulo}</span> {sobre.nome.texto}</p>
+      </div>
+    </div>
+  </section>
+
+  <CTA titulo={sobre.cta.titulo} texto={sobre.cta.texto} rotulo="Falar com a gente" href="/contato" />
+</Base>
+
+<style>
+  .territorio {
+    display: grid;
+    gap: var(--esp-5);
+  }
+  .territorio__texto {
+    font-family: var(--fonte-display);
+    font-size: var(--titulo-3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 32ch;
+    margin: 0;
+  }
+  .etapas {
+    display: grid;
+    gap: var(--esp-6);
+  }
+  .etapa .tag {
+    font-size: 0.875rem;
+    margin-bottom: var(--esp-4);
+  }
+  .etapa p {
+    font-size: var(--texto-lg);
+    color: var(--claro-suave);
+    max-width: 24rem;
+    margin: 0;
+  }
+  .promessa__titulo {
+    font-size: var(--titulo-mega);
+    margin: 0;
+  }
+  .promessa__texto {
+    font-size: var(--texto-lg);
+    max-width: 30rem;
+  }
+  .promessa__nome {
+    margin: var(--esp-6) 0 0;
+    color: var(--branco-quente);
+  }
+  .promessa__nome .rotulo {
+    color: var(--branco-quente);
+    opacity: 0.8;
+    margin-right: var(--esp-2);
+  }
+  @media (min-width: 900px) {
+    .territorio {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: var(--esp-7);
+      align-items: start;
+    }
+    .etapas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .promessa__grade {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--esp-7);
+      align-items: end;
+    }
+  }
+</style>

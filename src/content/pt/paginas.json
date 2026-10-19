@@ -1,0 +1,42 @@
+{
+  "contato": {
+    "seo": {
+      "titulo": "Contato | InnTech Labs",
+      "descricao": "Fale com a InnTech Labs pelo WhatsApp, e-mail ou formulário. Conte o desafio da sua operação."
+    },
+    "titulo": "Fale com a gente.",
+    "subtitulo": "Conte o desafio da sua operação. A gente responde.",
+    "rotuloWhatsapp": "Chamar no WhatsApp",
+    "rotulos": { "whatsapp": "WhatsApp", "email": "E-mail", "instagram": "Instagram" },
+    "formularioTitulo": "Mande uma mensagem",
+    "demo": "Quer ver funcionando antes?",
+    "demoLink": "Solicitar acesso à demonstração"
+  },
+  "pedidoRecebido": {
+    "seo": { "titulo": "Pedido recebido", "descricao": "Recebemos seu pedido de acesso à demonstração." },
+    "titulo": "Pedido recebido.",
+    "texto": "A gente analisa e responde no e-mail que você informou.",
+    "adiantar": "Quer adiantar a conversa?",
+    "rotuloWhatsapp": "Chamar no WhatsApp",
+    "voltar": "Voltar para o início"
+  },
+  "obrigado": {
+    "seo": { "titulo": "Mensagem enviada", "descricao": "Recebemos sua mensagem." },
+    "titulo": "Mensagem enviada.",
+    "texto": "Recebemos sua mensagem. A gente responde em breve.",
+    "voltar": "Voltar para o início"
+  },
+  "avisoConfirmado": {
+    "seo": { "titulo": "Aviso confirmado", "descricao": "Vamos avisar você no lançamento." },
+    "titulo": "Combinado.",
+    "texto": "A gente avisa você quando o InnLoco Campo chegar.",
+    "acao": "Conhecer o InnLoco Comando"
+  },
+  "erro404": {
+    "seo": { "titulo": "Página não encontrada", "descricao": "A página procurada não existe ou mudou de endereço." },
+    "rotulo": "Erro 404",
+    "titulo": "Essa fase não existe.",
+    "texto": "O endereço mudou ou a página saiu do mapa.",
+    "voltar": "Ir para o início"
+  }
+}
