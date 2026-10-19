@@ -36,7 +36,9 @@ interface Props {
 const { titulo, tituloSeo, descricao = site.descricao, imagem = site.imagemOg, semIndexar = false } = Astro.props;
 
 const tituloCompleto = tituloSeo ?? (titulo === site.nome ? site.nome : `${titulo} | ${site.nome}`);
-const canonica = urlAbsoluta(Astro.url.pathname.replace(/\.html$/, ''));
+// Com build.format 'file', a home chega aqui como "/index.html": a canônica dela tem de ser "/".
+const caminho = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+const canonica = urlAbsoluta(caminho);
 const imagemAbsoluta = urlAbsoluta(imagem);
 const naoIndexar = semIndexar || ehPrevia;
 
