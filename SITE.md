@@ -44,7 +44,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - E-mail público: contato@inntechlabs.com.br · pedidos de demo: comercial@inntechlabs.com.br
 - Instagram: @inntechlabs · LinkedIn: ainda não existe (fica oculto até o link entrar em `site.json`).
 - Formulários (Netlify Forms, honeypot `campo-robo`):
-  - `solicitar-acesso-demo` → notificar comercial@ · sinaliza e-mail gratuito no campo `email_gratuito` (não bloqueia).
+  - `solicitar-acesso-demo` → webhook para a demo (`https://demo.inntechlabs.com.br/api/pedido`), que cria o pedido no painel e avisa o comercial@ por e-mail com o link do painel (sem e-mail da Netlify, para não chegar em dobro) · sinaliza e-mail gratuito no campo `email_gratuito` (não bloqueia).
   - `contato` → notificar contato@.
   - `aviso-lancamento` → notificar comercial@.
 
