@@ -15,7 +15,7 @@
   "pedidoRecebido": {
     "seo": { "titulo": "Pedido recebido", "descricao": "Recebemos seu pedido de acesso à demonstração." },
     "titulo": "Pedido recebido.",
-    "texto": "A gente analisa e responde no e-mail que você informou.",
+    "texto": "A gente analisa e envia o acesso para o e-mail que você informou. Se não chegar, confira o lixo eletrônico ou spam.",
     "adiantar": "Quer adiantar a conversa?",
     "rotuloWhatsapp": "Chamar no WhatsApp",
     "voltar": "Voltar para o início"
