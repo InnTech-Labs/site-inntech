@@ -5,7 +5,7 @@
 - Domínio: inntechlabs.com.br | Registrador e DNS: Hostinger (acesso: Leo)
 - Hospedagem: Netlify — projeto `inntechlabs`, time InnTechLabs | Repositório: InnTech-Labs/site-inntech
 - E-mail do domínio: Hostinger Business Email — caixa principal com os aliases contato@, comercial@, financeiro@ e operacional@
-- Status: em produção | No ar desde: —
+- Status: no ar em inntechlabs.netlify.app (domínio inntechlabs.com.br sendo apontado) | No ar desde: 2026-10-19
 
 ## Objetivo e públicos
 Objetivos, em ordem: (1) gerar pedidos de demonstração — CTA principal em todas as páginas; (2) ser cartão de visitas em reuniões, aberto no celular ou notebook do cliente; (3) vitrine dos produtos, começando pelo InnLoco.
@@ -85,4 +85,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - Lançamento: checklist completo, teste em celular real (Android e iPhone), DNS na Hostinger preservando MX/SPF/DKIM/DMARC (portão de publicação).
 
 ## Histórico de alterações
-- (nenhuma publicação ainda)
+- 2026-10-19 — v1 publicada (home, soluções, InnLoco, demonstração, sobre, contato, políticas) — aprovada pelo Leo; autorizou também levar ao domínio (PR #1)
