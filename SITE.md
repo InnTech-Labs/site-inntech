@@ -67,17 +67,20 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-18 — Hero com ilustração própria (mapa de uma operação com o marcador "você") até chegar o vídeo do InnLoco Comando — não há render ainda e o briefing veta banco de imagens.
 - 2026-10-18 — "O que entregamos" usa as quatro soluções confirmadas (3D, interativo, gamificação, diálogo e procedimento) — "Plataformas" depende da confirmação do LMS.
 - 2026-10-18 — Formulários pela Netlify Forms; a área de demo recebe os pedidos por webhook, para o pedido não se perder se a demo cair.
+- 2026-10-18 — Textos e visual aprovados pelo Leo na prévia (portões 1 e 2).
+- 2026-10-18 — LMS e Realidade Virtual ficam para depois (textos prontos, ocultos).
+- 2026-10-18 — CNPJ e vídeo do InnLoco Comando entram depois que o projeto estiver funcionando.
+- 2026-10-18 — Área de demonstração em repositório separado e privado (`demo-inntech`), na Netlify, sem contas novas.
 
 ## Pendências
-- Aprovar textos e visual na prévia (portões 1 e 2 do site novo).
-- CNPJ da INN TECH LTDA para o rodapé e a política de privacidade.
-- Confirmar se "Plataformas de cursos / LMS" e "Realidade Virtual" entram em Soluções (textos prontos, ocultos).
+- CNPJ da INN TECH LTDA para o rodapé e a política de privacidade (depois que o projeto estiver funcionando).
+- "Plataformas de cursos / LMS" e "Realidade Virtual": decidir depois (textos prontos, ocultos).
 - Sites de referência (2 ou 3) e o que agrada em cada um.
 - Vídeo/render do InnLoco Comando (hero, página do produto e prints da demonstração).
 - Link do LinkedIn quando existir.
 - ID do GA4 e configuração do Search Console.
 - Netlify: ativar Form detection e notificações dos três formulários.
-- Área de demonstração: construir (repositório privado `demo-inntech`) e ligar o webhook dos pedidos; conteúdo das demos a enviar.
+- Área de demonstração: v1 em revisão (PR #1 de `demo-inntech`); depois, ligar o webhook dos pedidos neste projeto; conteúdo das demos a enviar.
 - Repositório `site-inntech` está público: recomendado voltar para privado.
 - Lançamento: checklist completo, teste em celular real (Android e iPhone), DNS na Hostinger preservando MX/SPF/DKIM/DMARC (portão de publicação).
 
