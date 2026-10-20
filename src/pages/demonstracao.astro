@@ -6,9 +6,9 @@ import Passos from '../components/Passos.astro';
 import FormularioDemo from '../components/FormularioDemo.astro';
 import { site } from '../lib/site';
 import demo from '../content/pt/demonstracao.json';
-import solucoes from '../content/pt/solucoes.json';
 
-const interesses = solucoes.itens.filter((item) => item.ativo).map((item) => item.nome);
+// "O que você quer ver" mostra só o que existe na demonstração (InnLoco Comando e Campo).
+const interesses = demo.catalogo.itens.map((item) => item.titulo);
 ---
 
 <Base titulo="Demonstração" tituloSeo={demo.seo.titulo} descricao={demo.seo.descricao}>

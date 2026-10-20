@@ -1,7 +1,7 @@
 {
   "seo": {
     "titulo": "Demonstração | InnTech Labs",
-    "descricao": "Peça acesso à área de demonstração da InnTech Labs e navegue pelo InnLoco Comando, conteúdos SCORM, gamificações e simulações de diálogo."
+    "descricao": "Peça acesso à área de demonstração da InnTech Labs e navegue pelo InnLoco Comando e pelo InnLoco Campo, simulações 3D que rodam no navegador."
   },
   "hero": {
     "titulo": "Veja funcionando antes de decidir.",
@@ -12,10 +12,8 @@
   "catalogo": {
     "titulo": "O que tem na demonstração",
     "itens": [
-      { "icone": "simulacao-3d", "titulo": "InnLoco Comando", "texto": "Jogável no navegador." },
-      { "icone": "conteudo-interativo", "titulo": "Conteúdo interativo", "texto": "Amostras de cursos em SCORM." },
-      { "icone": "gamificacao", "titulo": "Gamificação", "texto": "Mini games e desafios." },
-      { "icone": "dialogo", "titulo": "Simulações de diálogo", "texto": "Cenários de conversa e decisão." }
+      { "icone": "simulacao-3d", "titulo": "InnLoco Comando", "texto": "A visão do todo, jogável no navegador." },
+      { "icone": "simulacao-3d", "titulo": "InnLoco Campo", "texto": "Em primeira pessoa, dentro do local de trabalho." }
     ]
   },
   "midia": {
