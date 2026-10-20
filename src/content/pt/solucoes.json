@@ -24,7 +24,8 @@
       "oQueE": "Ambientes 3D interativos que reproduzem a operação, como o InnLoco.",
       "paraQueServe": "Entender o fluxo, praticar a sequência certa e decidir sem risco.",
       "ondeSeAplica": "Treinamento offshore digital, plantas industriais, áreas de acesso restrito e integração de quem chega.",
-      "linkExtra": { "rotulo": "Conhecer o InnLoco", "href": "/innloco" }
+      "linkExtra": { "rotulo": "Conhecer o InnLoco", "href": "/innloco" },
+      "naDemonstracao": true
     },
     {
       "id": "conteudo-interativo",
@@ -90,6 +91,7 @@
     }
   ],
   "ctaItem": "Ver na demonstração",
+  "ctaConversa": "Falar com a gente",
   "cta": {
     "titulo": "Veja os formatos funcionando.",
     "texto": "Peça seu acesso à demonstração."

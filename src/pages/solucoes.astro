@@ -43,7 +43,12 @@ const itens = solucoes.itens.filter((item) => item.ativo);
             </div>
           </dl>
           <div class="acoes">
-            <a class="botao" href={site.cta.href}>{solucoes.ctaItem}</a>
+            {/* Só o que está na área de demonstração leva para ela; o resto, para uma conversa. */}
+            {item.naDemonstracao ? (
+              <a class="botao" href={site.cta.href}>{solucoes.ctaItem}</a>
+            ) : (
+              <a class="botao botao--grafite" href="/contato">{solucoes.ctaConversa}</a>
+            )}
             {item.linkExtra && <a class="link" href={item.linkExtra.href}>{item.linkExtra.rotulo}</a>}
           </div>
         </div>

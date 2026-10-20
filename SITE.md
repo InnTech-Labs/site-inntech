@@ -75,6 +75,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-18 — Área de demonstração em repositório separado e privado (`demo-inntech`), na Netlify, sem contas novas.
 - 2026-10-19 — Repositório `site-inntech` fica público: no plano gratuito, a Netlify só publica pela integração com o GitHub a partir de repositório público da organização. Não há segredo nem dado de pessoas neste repositório; a demo, que tem dados, é privada.
 - 2026-10-20 — Pedido de demonstração sem cargo e sem telefone: só nome, empresa, e-mail e área — pedido do Leo, para ser o mais fácil possível. O contato segue pelo e-mail.
+- 2026-10-20 — A demonstração mostra só o InnLoco (Comando e Campo): não vai ter demo de SCORM, gamificação nem diálogo (decisão do Leo). No site, essas soluções levam para "Falar com a gente", não para a demonstração.
 - 2026-10-20 — InnLoco Campo deixa de ser "Em breve": já está na área de demonstração. O "Quero ser avisado" sai da página.
 - 2026-10-19 — Domínio no ar com o DNS na Hostinger (o domínio e o e-mail continuam lá) — autorizado pelo Leo.
 
@@ -85,7 +86,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - Vídeo/render do InnLoco Comando (hero, página do produto e prints da demonstração).
 - Link do LinkedIn quando existir.
 - ID do GA4 e configuração do Search Console.
-- Área de demonstração: conteúdo das demos a enviar.
+- Área de demonstração: versões novas do InnLoco Comando e Campo, quando o Leo enviar.
 - Lançamento: testar o formulário de contato no ar e testar em celular real (Android e iPhone).
 
 ## Histórico de alterações
@@ -95,4 +96,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-19 — Form detection e notificações configuradas pelo Leo: contato → contato@, aviso-lancamento → comercial@ (assuntos "Site InnTech: …"), solicitar-acesso-demo → webhook da demo; pedido de demonstração testado de ponta a ponta
 - 2026-10-19 — Página "Pedido recebido" avisa para conferir o lixo eletrônico (o primeiro e-mail de acesso caiu no lixo do Hotmail, por ser domínio novo) (PR #3)
 - 2026-10-20 — Formulário de pedido de demonstração mais curto: sem cargo e sem telefone; "o que você quer ver" opcional (PR #4)
-- 2026-10-20 — InnLoco Campo "Na demonstração" na página do InnLoco (sai o "Quero ser avisado") e Campo incluído na lista da página Demonstração (PR #5)
+- 2026-10-20 — InnLoco Campo "Na demonstração" na página do InnLoco (sai o "Quero ser avisado") e Campo incluído na lista da página Demonstração; a página Demonstração passa a citar só o InnLoco, e SCORM, gamificação e diálogo levam para "Falar com a gente" em Soluções (PR #5)
