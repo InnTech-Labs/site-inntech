@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import MapaOperacao from '../components/MapaOperacao.astro';
 import Ficha from '../components/Ficha.astro';
-import FormularioAviso from '../components/FormularioAviso.astro';
 import CTA from '../components/CTA.astro';
 import { site } from '../lib/site';
 import innloco from '../content/pt/innloco.json';
@@ -85,13 +84,13 @@ const temGaleria = Boolean(innloco.galeria.video.src) || innloco.galeria.imagens
   <section class="secao campo" aria-labelledby="campo-titulo">
     <div class="container campo__grade">
       <div>
-        <span class="tag tag--contorno">{innloco.campo.status}</span>
+        <span class="tag">{innloco.campo.status}</span>
         <h2 id="campo-titulo" class="campo__titulo">{innloco.campo.titulo}</h2>
         <p class="lead">{innloco.campo.texto}</p>
       </div>
       <div>
         <p class="campo__convite">{innloco.campo.convite}</p>
-        <FormularioAviso produto="InnLoco Campo" />
+        <a class="botao" href="/demonstracao">{innloco.campo.acao}</a>
       </div>
     </div>
   </section>
@@ -148,6 +147,7 @@ const temGaleria = Boolean(innloco.galeria.video.src) || innloco.galeria.imagens
   .campo__convite {
     font-weight: 500;
     color: var(--claro);
+    margin-bottom: var(--esp-4);
   }
   @media (min-width: 900px) {
     .oquee,

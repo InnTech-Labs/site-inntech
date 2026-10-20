@@ -31,7 +31,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 |---|---|---|---|
 | Home | `/` | Mostrar o que é, para quem, e levar à demo | Hero com ilustração do mapa da operação até chegar o vídeo do InnLoco |
 | Soluções | `/solucoes` | Detalhar cada formato | LMS e Realidade Virtual prontos no conteúdo, ocultos (`"ativo": false`) |
-| InnLoco | `/innloco` | Página do produto-vitrine | InnLoco Campo como "Em breve" com "Quero ser avisado"; galeria aparece quando houver mídia |
+| InnLoco | `/innloco` | Página do produto-vitrine | InnLoco Campo "Na demonstração", com botão para pedir acesso; galeria aparece quando houver mídia |
 | Demonstração | `/demonstracao` | Pedido de acesso à área de demo | Botão "Entrar" → demo.inntechlabs.com.br |
 | Sobre | `/sobre` | Posicionamento e forma de trabalho | Sem foto do fundador por enquanto |
 | Contato | `/contato` | Formulário geral, WhatsApp e e-mail | |
@@ -46,7 +46,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - Formulários (Netlify Forms, honeypot `campo-robo`):
   - `solicitar-acesso-demo` (obrigatórios: nome, empresa, e-mail e área; "o que você quer ver" e mensagem opcionais) → webhook para a demo (`https://demo.inntechlabs.com.br/api/pedido`), que cria o pedido no painel e avisa o comercial@ por e-mail com o link do painel (sem e-mail da Netlify, para não chegar em dobro) · sinaliza e-mail gratuito no campo `email_gratuito` (não bloqueia).
   - `contato` → notificar contato@.
-  - `aviso-lancamento` → notificar comercial@.
+  - `aviso-lancamento` → notificar comercial@. Hoje fora do ar (o InnLoco Campo saiu do "Em breve"); o componente `FormularioAviso` fica para os próximos lançamentos.
 
 ## Integrações
 - Netlify Forms: Form detection ativo; notificações em Forms → Submission notifications (ver "Formulários" acima).
@@ -75,6 +75,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-18 — Área de demonstração em repositório separado e privado (`demo-inntech`), na Netlify, sem contas novas.
 - 2026-10-19 — Repositório `site-inntech` fica público: no plano gratuito, a Netlify só publica pela integração com o GitHub a partir de repositório público da organização. Não há segredo nem dado de pessoas neste repositório; a demo, que tem dados, é privada.
 - 2026-10-20 — Pedido de demonstração sem cargo e sem telefone: só nome, empresa, e-mail e área — pedido do Leo, para ser o mais fácil possível. O contato segue pelo e-mail.
+- 2026-10-20 — InnLoco Campo deixa de ser "Em breve": já está na área de demonstração. O "Quero ser avisado" sai da página.
 - 2026-10-19 — Domínio no ar com o DNS na Hostinger (o domínio e o e-mail continuam lá) — autorizado pelo Leo.
 
 ## Pendências
@@ -94,3 +95,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-19 — Form detection e notificações configuradas pelo Leo: contato → contato@, aviso-lancamento → comercial@ (assuntos "Site InnTech: …"), solicitar-acesso-demo → webhook da demo; pedido de demonstração testado de ponta a ponta
 - 2026-10-19 — Página "Pedido recebido" avisa para conferir o lixo eletrônico (o primeiro e-mail de acesso caiu no lixo do Hotmail, por ser domínio novo) (PR #3)
 - 2026-10-20 — Formulário de pedido de demonstração mais curto: sem cargo e sem telefone; "o que você quer ver" opcional (PR #4)
+- 2026-10-20 — InnLoco Campo "Na demonstração" na página do InnLoco (sai o "Quero ser avisado") e Campo incluído na lista da página Demonstração (PR #5)

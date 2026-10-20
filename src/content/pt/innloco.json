@@ -49,10 +49,11 @@
     "imagens": []
   },
   "campo": {
-    "status": "Em breve",
+    "status": "Na demonstração",
     "titulo": "InnLoco Campo",
-    "texto": "Simulação 3D realista que reproduz locais reais.",
-    "convite": "Quer saber quando chegar? Deixe seu e-mail."
+    "texto": "Simulação 3D em primeira pessoa: você dentro do local de trabalho.",
+    "convite": "Já dá para ver na área de demonstração.",
+    "acao": "Solicitar acesso"
   },
   "cta": {
     "titulo": "Veja o InnLoco funcionando.",
