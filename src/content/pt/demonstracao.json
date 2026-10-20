@@ -25,7 +25,7 @@
   "acesso": {
     "titulo": "Como funciona o acesso",
     "passos": [
-      { "titulo": "Você pede", "texto": "Preencha o formulário com seus dados e o que quer ver." },
+      { "titulo": "Você pede", "texto": "Nome, empresa, e-mail e área. Só isso." },
       { "titulo": "A gente libera", "texto": "Analisamos o pedido e enviamos o acesso por e-mail." },
       { "titulo": "Você navega", "texto": "O acesso vale por tempo limitado. A data de validade vai no e-mail." }
     ]

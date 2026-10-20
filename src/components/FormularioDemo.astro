@@ -7,6 +7,8 @@
  *   da Netlify envia cada pedido para ela (o pedido nunca se perde, mesmo se a demo cair).
  * - E-mail gratuito (gmail, hotmail…) não é bloqueado: o campo oculto "email_gratuito"
  *   sinaliza para o Leo decidir.
+ * - Campos obrigatórios só os essenciais: nome, empresa, e-mail e área. "O que você quer ver"
+ *   e mensagem são opcionais (pedido do Leo: o mais fácil possível; sem cargo e sem telefone).
  * - LGPD: aceite obrigatório, com link para a política de privacidade.
  */
 interface Props {
@@ -45,8 +47,8 @@ const nome = 'solicitar-acesso-demo';
 
   <div class="formulario__linha">
     <div class="campo">
-      <label for="d-cargo">Cargo</label>
-      <input id="d-cargo" name="cargo" type="text" autocomplete="organization-title" required />
+      <label for="d-email">E-mail corporativo</label>
+      <input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" required />
     </div>
     <div class="campo">
       <label for="d-area">Área</label>
@@ -57,23 +59,12 @@ const nome = 'solicitar-acesso-demo';
     </div>
   </div>
 
-  <div class="formulario__linha">
-    <div class="campo">
-      <label for="d-email">E-mail corporativo</label>
-      <input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" required />
-    </div>
-    <div class="campo">
-      <label for="d-telefone">Telefone ou WhatsApp</label>
-      <input id="d-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required />
-    </div>
-  </div>
-
   <fieldset class="grupo">
-    <legend>O que você quer ver</legend>
+    <legend>O que você quer ver <span class="opcional">(opcional)</span></legend>
     <div class="opcoes">
-      {interesses.map((interesse, i) => (
+      {interesses.map((interesse) => (
         <label class="opcao">
-          <input type="checkbox" name="interesse[]" value={interesse} data-interesse={i === 0 ? 'primeiro' : undefined} />
+          <input type="checkbox" name="interesse[]" value={interesse} />
           <span>{interesse}</span>
         </label>
       ))}
@@ -112,15 +103,6 @@ const nome = 'solicitar-acesso-demo';
   if (form) {
     const email = form.querySelector<HTMLInputElement>('input[name="email"]')!;
     const sinal = form.querySelector<HTMLInputElement>('input[name="email_gratuito"]')!;
-    const interesses = [...form.querySelectorAll<HTMLInputElement>('input[name="interesse[]"]')];
-    const primeiro = interesses[0];
-
-    const exigirInteresse = () => {
-      const algum = interesses.some((caixa) => caixa.checked);
-      primeiro?.setCustomValidity(algum ? '' : 'Escolha pelo menos uma opção.');
-    };
-    interesses.forEach((caixa) => caixa.addEventListener('change', exigirInteresse));
-    exigirInteresse();
 
     form.addEventListener('submit', () => {
       const dominio = email.value.trim().toLowerCase().split('@')[1] || '';

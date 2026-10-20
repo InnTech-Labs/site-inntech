@@ -44,7 +44,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - E-mail público: contato@inntechlabs.com.br · pedidos de demo: comercial@inntechlabs.com.br
 - Instagram: @inntechlabs · LinkedIn: ainda não existe (fica oculto até o link entrar em `site.json`).
 - Formulários (Netlify Forms, honeypot `campo-robo`):
-  - `solicitar-acesso-demo` → webhook para a demo (`https://demo.inntechlabs.com.br/api/pedido`), que cria o pedido no painel e avisa o comercial@ por e-mail com o link do painel (sem e-mail da Netlify, para não chegar em dobro) · sinaliza e-mail gratuito no campo `email_gratuito` (não bloqueia).
+  - `solicitar-acesso-demo` (obrigatórios: nome, empresa, e-mail e área; "o que você quer ver" e mensagem opcionais) → webhook para a demo (`https://demo.inntechlabs.com.br/api/pedido`), que cria o pedido no painel e avisa o comercial@ por e-mail com o link do painel (sem e-mail da Netlify, para não chegar em dobro) · sinaliza e-mail gratuito no campo `email_gratuito` (não bloqueia).
   - `contato` → notificar contato@.
   - `aviso-lancamento` → notificar comercial@.
 
@@ -74,6 +74,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-18 — CNPJ e vídeo do InnLoco Comando entram depois que o projeto estiver funcionando.
 - 2026-10-18 — Área de demonstração em repositório separado e privado (`demo-inntech`), na Netlify, sem contas novas.
 - 2026-10-19 — Repositório `site-inntech` fica público: no plano gratuito, a Netlify só publica pela integração com o GitHub a partir de repositório público da organização. Não há segredo nem dado de pessoas neste repositório; a demo, que tem dados, é privada.
+- 2026-10-20 — Pedido de demonstração sem cargo e sem telefone: só nome, empresa, e-mail e área — pedido do Leo, para ser o mais fácil possível. O contato segue pelo e-mail.
 - 2026-10-19 — Domínio no ar com o DNS na Hostinger (o domínio e o e-mail continuam lá) — autorizado pelo Leo.
 
 ## Pendências
@@ -92,3 +93,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-19 — Correção: a URL canônica da home apontava para "/index" (o Google podia tratar outro endereço como a página principal); a checagem automática passa a conferir a canônica de todas as páginas; o endereço técnico inntechlabs.netlify.app passa a redirecionar para o domínio (PR #2)
 - 2026-10-19 — Form detection e notificações configuradas pelo Leo: contato → contato@, aviso-lancamento → comercial@ (assuntos "Site InnTech: …"), solicitar-acesso-demo → webhook da demo; pedido de demonstração testado de ponta a ponta
 - 2026-10-19 — Página "Pedido recebido" avisa para conferir o lixo eletrônico (o primeiro e-mail de acesso caiu no lixo do Hotmail, por ser domínio novo) (PR #3)
+- 2026-10-20 — Formulário de pedido de demonstração mais curto: sem cargo e sem telefone; "o que você quer ver" opcional (PR #4)
