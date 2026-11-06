@@ -38,6 +38,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 | Privacidade | `/politica-de-privacidade` | LGPD | Texto em `src/content/legal/` |
 | Cookies | `/politica-de-cookies` | LGPD | |
 | Confirmações | `/pedido-recebido`, `/obrigado`, `/aviso-confirmado` | Pós-envio dos formulários | Fora do sitemap, `noindex` |
+| Renova (demonstração) | `/renova` | Protótipo navegável do Renova, para enviar a clientes | Página independente (`public/renova.html`), fora do menu e do sitemap, `noindex`; dados fictícios; arquivos em `public/demos/renova/` |
 
 ## Conversão e contatos
 - WhatsApp/telefone: (22) 99232-7533 — botão flutuante em todas as páginas; mensagem "Olá! Vim pelo site da InnTech Labs e quero saber mais." + página de origem.
@@ -78,6 +79,7 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-20 — A demonstração mostra só o InnLoco (Comando e Campo): não vai ter demo de SCORM, gamificação nem diálogo (decisão do Leo). No site, essas soluções levam para "Falar com a gente", não para a demonstração.
 - 2026-10-20 — InnLoco Campo deixa de ser "Em breve": já está na área de demonstração. O "Quero ser avisado" sai da página.
 - 2026-10-19 — Domínio no ar com o DNS na Hostinger (o domínio e o e-mail continuam lá) — autorizado pelo Leo.
+- 2026-11-06 — Demonstração do Renova em dois lugares, a pedido do Leo: no domínio (`/renova`), como página independente para mandar o link direto, sem login (fora do menu e do sitemap, sem indexação, fontes locais); e no catálogo da área de demonstração, junto com o InnLoco, para acesso com prazo e registro do que a pessoa viu. A página Demonstração do site segue citando só o InnLoco.
 
 ## Pendências
 - CNPJ da INN TECH LTDA para o rodapé e a política de privacidade (depois que o projeto estiver funcionando).
@@ -97,3 +99,4 @@ Fonte: Manual da Marca v2 (out/2026), logo v3 e kit v1.2. Arquivos oficiais em `
 - 2026-10-19 — Página "Pedido recebido" avisa para conferir o lixo eletrônico (o primeiro e-mail de acesso caiu no lixo do Hotmail, por ser domínio novo) (PR #3)
 - 2026-10-20 — Formulário de pedido de demonstração mais curto: sem cargo e sem telefone; "o que você quer ver" opcional (PR #4)
 - 2026-10-20 — InnLoco Campo "Na demonstração" na página do InnLoco (sai o "Quero ser avisado") e Campo incluído na lista da página Demonstração; a página Demonstração passa a citar só o InnLoco, e SCORM, gamificação e diálogo levam para "Falar com a gente" em Soluções (PR #5)
+- 2026-11-06 — Página de demonstração do Renova em `/renova` (fora do menu e do sitemap, `noindex`), para mandar o link a clientes — aprovada pelo Leo (PR #6)
